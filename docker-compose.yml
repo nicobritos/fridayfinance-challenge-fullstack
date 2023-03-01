@@ -1,0 +1,42 @@
+version: "3.3"
+
+services:
+  ff-challenge-db:
+    container_name: ff-challenge-db
+    hostname: ff-challenge-db
+    restart: unless-stopped
+    image: ff-challenge-db
+    build:
+      context: ./db
+    volumes:
+      - ff-challenge-db:/var/lib/postgresql/data
+    env_file:
+      - db/config/.env.docker
+    network_mode: bridge
+    networks:
+      - db
+    ports:
+      - "5432:5432"
+
+  ff-challenge-backend:
+    container_name: ff-challenge-backend
+    restart: always
+    image: ff-challenge-backend
+    build:
+      context: ./backend
+    depends_on:
+      - ff-challenge-db
+    env_file:
+      - backend/config/.env.docker
+    network_mode: bridge
+    networks:
+      - db
+    ports:
+      - "5000:5000"
+
+networks:
+  db:
+    driver: bridge
+
+volumes:
+  ff-challenge-db:
