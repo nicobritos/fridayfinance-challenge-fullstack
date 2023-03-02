@@ -1,11 +1,11 @@
 import accountResolverImpl from './resolvers/AccountResolverImpl';
 
-import isoDateResolver from './resolvers/ISODate'
-import { Resolvers } from './resolvers/generated'
+import isoDateResolver from './resolvers/ISODate';
+import { Resolvers } from './resolvers/generated';
 
 const resolvers: Resolvers = {
-    ...isoDateResolver,
-    ...accountResolverImpl,
+  ...isoDateResolver,
+  ...accountResolverImpl,
 };
 
 export default resolvers;

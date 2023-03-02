@@ -4,9 +4,6 @@ module.exports = {
     node: true,
   },
   parser: '@typescript-eslint/parser',
-  rules: {
-    'prettier/prettier': 'error',
-  },
   plugins: ['@typescript-eslint', 'prettier'],
   extends: [
     'eslint:recommended',
@@ -16,5 +13,9 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
+  },
+  rules: {
+    'prettier/prettier': 'error',
+    'arrow-parens': 'error',
   },
 };

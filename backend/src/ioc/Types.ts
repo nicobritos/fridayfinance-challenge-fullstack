@@ -3,10 +3,10 @@
 // a type to support circular dependencies.
 // See more: https://github.com/inversify/InversifyJS/blob/master/wiki/classes_as_id.md#known-limitation-classes-as-identifiers-and-circular-dependencies
 
-import repositoriesTypes from '@interfaces/repositories/repositories.types'
-import servicesTypes from '@interfaces/services/services.types'
+import repositoriesTypes from '@interfaces/repositories/repositories.types';
+import servicesTypes from '@interfaces/services/services.types';
 
-let TYPES = {
+const TYPES = {
   Repositories: {
     ...repositoriesTypes,
   },
@@ -15,7 +15,7 @@ let TYPES = {
   },
   Extra: {
     PrismaClient: Symbol('PrismaClient'),
-  }
+  },
 };
 
 export default TYPES;

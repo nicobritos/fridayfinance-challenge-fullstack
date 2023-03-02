@@ -1,4 +1,4 @@
-import { Resolvers } from '@controllers/resolvers/generated'
+import { Resolvers } from '@controllers/resolvers/generated';
 
 export interface BaseResolver {
   resolvers(): Resolvers;

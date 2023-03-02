@@ -1,4 +1,4 @@
-import bindContainer from './ContainerBindings'
+import bindContainer from './ContainerBindings';
 
 export default function setUpIoC(): void {
   // We need to split the binding of the container from its instantiation

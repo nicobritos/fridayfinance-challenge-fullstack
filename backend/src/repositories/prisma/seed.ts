@@ -1,6 +1,6 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
 async function main() {
   await seedAccounts();
@@ -9,7 +9,7 @@ async function main() {
 }
 
 async function seedAccounts(): Promise<void> {
-  let filePath = '/seed/accounts.csv';
+  const filePath = '/seed/accounts.csv';
 
   await prisma.$executeRawUnsafe(`
     COPY "Account" (id, name, bank) FROM '${filePath}' WITH (FORMAT csv, HEADER true, DELIMITER ',');
@@ -17,7 +17,7 @@ async function seedAccounts(): Promise<void> {
 }
 
 async function seedCategories(): Promise<void> {
-  let filePath = '/seed/categories.csv';
+  const filePath = '/seed/categories.csv';
 
   await prisma.$executeRawUnsafe(`
     COPY "Category" (id, name, color) FROM '${filePath}' WITH (FORMAT csv, HEADER true, DELIMITER ',');
@@ -25,7 +25,7 @@ async function seedCategories(): Promise<void> {
 }
 
 async function seedTransactions(): Promise<void> {
-  let filePath = '/seed/transactions.csv';
+  const filePath = '/seed/transactions.csv';
 
   await prisma.$executeRaw`SET datestyle = ymd;`;
   await prisma.$executeRawUnsafe(`
@@ -35,10 +35,10 @@ async function seedTransactions(): Promise<void> {
 
 main()
   .then(async () => {
-    await prisma.$disconnect()
+    await prisma.$disconnect();
   })
   .catch(async (e) => {
-    console.error(e)
-    await prisma.$disconnect()
-    process.exit(1)
-  })
+    console.error(e);
+    await prisma.$disconnect();
+    process.exit(1);
+  });

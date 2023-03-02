@@ -1,11 +1,11 @@
 import 'reflect-metadata';
-import {Account} from '@models/Account';
-import { Resolvers } from './generated'
-import TYPES from '../../ioc/Types'
-import { AccountService } from '@interfaces/services/AccountService'
-import { BaseResolver } from '@controllers/resolvers/BaseResolver'
+import { Account } from '@models/Account';
+import { Resolvers } from './generated';
+import TYPES from '../../ioc/Types';
+import { AccountService } from '@interfaces/services/AccountService';
+import { BaseResolver } from '@controllers/resolvers/BaseResolver';
 import { injectable } from 'inversify';
-import lazyInject from '../../ioc/LazyInject'
+import lazyInject from '../../ioc/LazyInject';
 
 @injectable()
 class AccountResolverImpl implements BaseResolver {
@@ -16,8 +16,8 @@ class AccountResolverImpl implements BaseResolver {
     return {
       Query: {
         listAccounts: this.listAccounts.bind(this),
-      }
-    }
+      },
+    };
   }
 
   async listAccounts(): Promise<Account[]> {
