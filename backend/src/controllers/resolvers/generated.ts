@@ -21,6 +21,13 @@ export type Account = Node & {
   name: Scalars['String'];
 };
 
+export type Category = Node & {
+  __typename?: 'Category';
+  color?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  name: Scalars['String'];
+};
+
 export type Node = {
   id: Scalars['ID'];
 };
@@ -28,6 +35,7 @@ export type Node = {
 export type Query = {
   __typename?: 'Query';
   listAccounts: Array<Account>;
+  listCategories: Array<Category>;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -102,9 +110,10 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = ResolversObject<{
   Account: ResolverTypeWrapper<Account>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  Category: ResolverTypeWrapper<Category>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   ISODate: ResolverTypeWrapper<Scalars['ISODate']>;
-  Node: ResolversTypes['Account'];
+  Node: ResolversTypes['Account'] | ResolversTypes['Category'];
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
 }>;
@@ -113,9 +122,10 @@ export type ResolversTypes = ResolversObject<{
 export type ResolversParentTypes = ResolversObject<{
   Account: Account;
   Boolean: Scalars['Boolean'];
+  Category: Category;
   ID: Scalars['ID'];
   ISODate: Scalars['ISODate'];
-  Node: ResolversParentTypes['Account'];
+  Node: ResolversParentTypes['Account'] | ResolversParentTypes['Category'];
   Query: {};
   String: Scalars['String'];
 }>;
@@ -127,21 +137,30 @@ export type AccountResolvers<ContextType = any, ParentType extends ResolversPare
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type CategoryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Category'] = ResolversParentTypes['Category']> = ResolversObject<{
+  color?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export interface IsoDateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['ISODate'], any> {
   name: 'ISODate';
 }
 
 export type NodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = ResolversObject<{
-  __resolveType: TypeResolveFn<'Account', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'Account' | 'Category', ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
 }>;
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   listAccounts?: Resolver<Array<ResolversTypes['Account']>, ParentType, ContextType>;
+  listCategories?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType>;
 }>;
 
 export type Resolvers<ContextType = any> = ResolversObject<{
   Account?: AccountResolvers<ContextType>;
+  Category?: CategoryResolvers<ContextType>;
   ISODate?: GraphQLScalarType;
   Node?: NodeResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;

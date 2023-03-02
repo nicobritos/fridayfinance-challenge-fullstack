@@ -1,3 +1,4 @@
 export default {
-    AccountRepository: Symbol('AccountRepository'),
+  AccountRepository: Symbol('AccountRepository'),
+  CategoryRepository: Symbol('CategoryRepository'),
 }

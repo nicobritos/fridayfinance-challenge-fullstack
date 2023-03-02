@@ -1,3 +1,4 @@
 export default {
-    AccountService: Symbol('AccountService'),
+  AccountService: Symbol('AccountService'),
+  CategoryService: Symbol('CategoryService'),
 }
