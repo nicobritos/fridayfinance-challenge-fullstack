@@ -1,0 +1,7 @@
+interface Node {
+    id: ID!
+}
+
+scalar ISODate
+
+type Query

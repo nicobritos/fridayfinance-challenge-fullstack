@@ -9,22 +9,42 @@
   "scripts": {
     "compile": "tsc",
     "prisma:seed": "dotenv -e config/.env -- prisma db seed",
-    "prisma:migrate": "dotenv -e config/.env -- prisma migrate dev --name init --schema ./src/prisma/schema.prisma",
-    "start": "npm run compile && node ./dist/index.js"
+    "prisma:migrate": "dotenv -e config/.env -- prisma migrate dev --name init --schema src/repositories/prisma/schema.prisma",
+    "dev": "dotenv -e config/.env -- node_modules/.bin/nodemon --exec \"node_modules/.bin/ts-node -r tsconfig-paths/register src/index.ts\"",
+    "start": "npm run compile && node ./dist/index.js",
+    "codegen": "graphql-codegen --config codegen.ts"
   },
   "dependencies": {
     "@apollo/server": "^4.4.0",
     "@prisma/client": "^4.11.0",
-    "graphql": "^16.6.0"
+    "graphql": "^16.6.0",
+    "inversify": "^6.0.1",
+    "inversify-inject-decorators": "^3.1.0",
+    "luxon": "^3.2.1"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "3.2.1",
+    "@graphql-codegen/typescript": "3.0.1",
+    "@graphql-codegen/typescript-resolvers": "3.1.0",
+    "@graphql-tools/load-files": "^6.6.1",
+    "@types/luxon": "^3.2.0",
     "@types/node": "^18.14.2",
     "dotenv-cli": "^7.0.0",
+    "nodemon": "^2.0.20",
     "prisma": "^4.11.0",
+    "reflect-metadata": "^0.1.13",
     "ts-node": "^10.9.1",
+    "tsconfig-paths": "^3.14.2",
     "typescript": "^4.9.5"
   },
   "prisma": {
     "seed": "dotenv -e config/.env -- ts-node --transpile-only ./src/prisma/seed.ts"
+  },
+  "_moduleAliases": {
+    "@models": "./src/models",
+    "@controllers": "./src/controllers",
+    "@interfaces": "./src/interfaces",
+    "@services": "./src/services",
+    "@repositories": "./src/repositories"
   }
 }

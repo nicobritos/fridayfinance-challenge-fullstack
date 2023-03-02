@@ -8,6 +8,8 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "baseUrl": ".",
 
     "strictPropertyInitialization": true,
     "strictNullChecks": true,
@@ -20,7 +22,24 @@
     "noImplicitOverride": true,
     "noImplicitThis": true,
     "removeComments": true,
+    "paths": {
+      "@models/*": [
+        "./src/models/*"
+      ],
+      "@controllers/*": [
+        "./src/controllers/*"
+      ],
+      "@interfaces/*": [
+        "./src/interfaces/*"
+      ],
+      "@services/*": [
+        "./src/services/*"
+      ],
+      "@repositories/*": [
+        "./src/repositories/*"
+      ]
+    },
 
-    "types": ["node"]
+    "types": ["node", "reflect-metadata"]
   }
 }

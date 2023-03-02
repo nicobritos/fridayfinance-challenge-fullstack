@@ -1,0 +1,15 @@
+{
+  "watch": [
+    "src/**/*.ts",
+    "src/**/*.js",
+    "src/**/*.graphql",
+    "config.ts",
+    "nodemon.json",
+    "tsconfig.json"
+  ],
+  "ignore": [
+    "src/**/*.spec.ts",
+    "src/**/test/**"
+  ],
+  "ext": "ts js json graphql"
+}
