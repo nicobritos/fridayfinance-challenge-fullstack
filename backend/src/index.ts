@@ -3,7 +3,7 @@ import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import typeDefs from '@controllers/typeDefs';
 import resolvers from '@controllers/resolvers';
-import setUpIoC from './ioc';
+import setUpIoC from './ioc/Index';
 
 function createApolloServer(): ApolloServer {
   return new ApolloServer({
