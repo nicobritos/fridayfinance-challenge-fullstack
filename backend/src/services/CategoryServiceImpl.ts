@@ -12,7 +12,11 @@ export class CategoryServiceImpl implements CategoryService {
   @lazyInject(TYPES.Repositories.CategoryRepository)
   private declare repository: CategoryRepository;
 
-  async findAll(params?: Nullable<{ ids: ID[] }>): Promise<Category[]> {
-    return this.repository.findAll(params);
+  findAll(): Promise<Category[]> {
+    return this.repository.findAll();
+  }
+
+  find(id: ID): Promise<Nullable<Category>> {
+    return this.repository.find(id);
   }
 }

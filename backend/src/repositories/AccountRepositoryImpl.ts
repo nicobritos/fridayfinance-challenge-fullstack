@@ -12,15 +12,16 @@ export class AccountRepositoryImpl implements AccountRepository {
   @lazyInject(TYPES.Extra.PrismaClient)
   private declare prisma: PrismaClient;
 
-  async findAll(params?: Nullable<{ ids?: ID[] }>): Promise<Account[]> {
-    if (params?.ids) {
-      return this.toModels(
-        await this.prisma.account.findMany({
-          where: { id: { in: params.ids } },
-        })
-      );
-    }
+  async findAll(): Promise<Account[]> {
     return this.toModels(await this.prisma.account.findMany({}));
+  }
+
+  async find(id: ID): Promise<Nullable<Account>> {
+    const entity = await this.prisma.account.findUnique({ where: { id } });
+    if (entity == null) {
+      return null;
+    }
+    return this.toModel(entity);
   }
 
   toModels(prismaAccounts: PrismaAccount[]): Account[] {

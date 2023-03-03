@@ -10,7 +10,7 @@
     "prisma:generate": "dotenv -e config/.env -- prisma generate --schema src/repositories/prisma/schema.prisma",
     "prisma:seed": "dotenv -e config/.env -- prisma db seed",
     "prisma:migrate": "dotenv -e config/.env -- prisma migrate dev --name init --schema src/repositories/prisma/schema.prisma",
-    "graphql:codegen": "graphql-codegen --config codegen.ts",
+    "graphql:generate": "graphql-codegen --config codegen.ts",
     "graphql:copy": "copyfiles -u 1 \"./src/**/*.graphql\" ./dist/src",
     "dev": "dotenv -e config/.env -- node_modules/.bin/nodemon --exec \"node_modules/.bin/ts-node-dev -r tsconfig-paths/register --transpile-only ./src/index.ts\"",
     "clean": "rimraf ./dist",

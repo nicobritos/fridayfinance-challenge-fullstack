@@ -12,15 +12,16 @@ export class CategoryRepositoryImpl implements CategoryRepository {
   @lazyInject(TYPES.Extra.PrismaClient)
   private declare prisma: PrismaClient;
 
-  async findAll(params?: Nullable<{ ids?: ID[] }>): Promise<Category[]> {
-    if (params?.ids) {
-      return this.toModels(
-        await this.prisma.category.findMany({
-          where: { id: { in: params.ids } },
-        })
-      );
-    }
+  async findAll(): Promise<Category[]> {
     return this.toModels(await this.prisma.category.findMany({}));
+  }
+
+  async find(id: ID): Promise<Nullable<Category>> {
+    const entity = await this.prisma.category.findUnique({ where: { id } });
+    if (entity == null) {
+      return null;
+    }
+    return this.toModel(entity);
   }
 
   toModels(prismaCategories: PrismaCategory[]): Category[] {

@@ -12,7 +12,11 @@ export class AccountServiceImpl implements AccountService {
   @lazyInject(TYPES.Repositories.AccountRepository)
   private declare repository: AccountRepository;
 
-  async findAll(params?: Nullable<{ ids: ID[] }>): Promise<Account[]> {
-    return this.repository.findAll(params);
+  async findAll(): Promise<Account[]> {
+    return this.repository.findAll();
+  }
+
+  async find(id: ID): Promise<Nullable<Account>> {
+    return this.repository.find(id);
   }
 }

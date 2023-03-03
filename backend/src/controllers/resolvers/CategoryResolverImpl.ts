@@ -4,7 +4,7 @@ import { BaseResolver } from '@controllers/resolvers/BaseResolver';
 import { injectable } from 'inversify';
 import lazyInject from '../../ioc/LazyInject';
 import { Category } from '@models/Category';
-import { Resolvers } from './generated';
+import { Resolvers } from './generated/generated';
 import { CategoryService } from '@interfaces/services/CategoryService';
 
 @injectable()

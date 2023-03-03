@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { Account } from '@models/Account';
-import { Resolvers } from './generated';
+import { Resolvers } from './generated/generated';
 import TYPES from '../../ioc/Types';
 import { AccountService } from '@interfaces/services/AccountService';
 import { BaseResolver } from '@controllers/resolvers/BaseResolver';
