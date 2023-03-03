@@ -4,15 +4,8 @@ module.exports = {
     browser: true,
     node: true,
   },
-  parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'prettier'],
-  extends: [
-    'eslint:recommended',
-    '@nuxtjs/eslint-config-typescript',
-    'plugin:nuxt/recommended',
-    'plugin:@typescript-eslint/recommended',
-    'prettier',
-  ],
+  plugins: ['prettier'],
+  extends: ['@nuxtjs/eslint-config-typescript', 'prettier'],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',

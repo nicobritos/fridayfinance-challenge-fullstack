@@ -35,7 +35,7 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/tailwindcss'],
+  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/apollo'],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
@@ -45,6 +45,19 @@ export default {
           tailwindcss: {},
           autoprefixer: {},
         },
+      },
+    },
+  },
+
+  server: {
+    host: '0.0.0.0',
+    port: 4000,
+  },
+
+  apollo: {
+    clientConfigs: {
+      default: {
+        httpEndpoint: 'http://localhost:5000/graphql',
       },
     },
   },
