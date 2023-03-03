@@ -1,17 +1,15 @@
 <template>
-  <Tutorial/>
+  <div class="flex justify-center py-4 w-full">
+    <OrganismTransactionList class="w-3/4 text-xs" />
+  </div>
 </template>
 
 <script lang="ts">
-import {Tutorial} from '~/components/Tutorial.vue';
-import {Component, Vue} from "vue-property-decorator";
+import { Component, Vue } from 'vue-property-decorator';
+import OrganismTransactionList from '~/components/organisms/OrganismTransactionList.vue';
 
 @Component({
-  components: {
-    Tutorial,
-  }
+  components: { OrganismTransactionList },
 })
-export default class Index extends Vue {
-
-}
+export default class Index extends Vue {}
 </script>
