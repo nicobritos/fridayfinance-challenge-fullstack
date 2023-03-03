@@ -1,12 +1,5 @@
-import { JSONSerializable, JSONSerializableKeys } from './JSONSerializable';
 import { ID } from './UtilityTypes';
 
-export abstract class BaseModel<T = object> implements JSONSerializable<T> {
-  public readonly id: ID;
-
-  protected constructor({ id }: { id: ID }) {
-    this.id = id;
-  }
-
-  abstract toJSON(): JSONSerializableKeys<T>;
+export interface BaseModel {
+  readonly id: ID;
 }

@@ -28,10 +28,10 @@ export class AccountRepositoryImpl implements AccountRepository {
   }
 
   toModel(prismaAccount: PrismaAccount): Account {
-    return new Account({
+    return {
       id: prismaAccount.id,
       name: prismaAccount.name,
       bank: prismaAccount.bank,
-    });
+    };
   }
 }

@@ -28,10 +28,10 @@ export class CategoryRepositoryImpl implements CategoryRepository {
   }
 
   toModel(prismaCategory: PrismaCategory): Category {
-    return new Category({
+    return {
       id: prismaCategory.id,
       name: prismaCategory.name,
-      color: prismaCategory.color ?? undefined,
-    });
+      color: prismaCategory.color,
+    };
   }
 }
