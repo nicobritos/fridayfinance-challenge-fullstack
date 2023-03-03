@@ -11,6 +11,7 @@ import { TransactionRepository } from '@interfaces/repositories/TransactionRepos
 import { Transaction } from '@models/Transaction';
 import { DateTime } from 'luxon';
 import {
+  TransactionPaginationFilter,
   TransactionPaginationOptions,
   TransactionPaginationSort,
   TransactionPaginationSortField,
@@ -26,11 +27,13 @@ export class TransactionRepositoryImpl implements TransactionRepository {
   async findAll(
     options: TransactionPaginationOptions
   ): Promise<Paginated<Transaction>> {
-    const orderBy = this.getOrderBy(options.sort);
+    const orderBy = this.buildOrderBy(options.sort);
+    const where = this.buildWhere(options.filter);
     let entities = await this.prisma.transaction.findMany({
       skip: options.offset,
       take: options.first + 1,
       orderBy: [orderBy],
+      where,
     });
 
     const hasNext = entities.length === options.first + 1;
@@ -47,7 +50,7 @@ export class TransactionRepositoryImpl implements TransactionRepository {
     };
   }
 
-  getOrderBy(
+  buildOrderBy(
     sort: TransactionPaginationSort
   ): Prisma.TransactionOrderByWithRelationInput {
     let field: keyof Prisma.TransactionOrderByWithRelationInput;
@@ -76,6 +79,39 @@ export class TransactionRepositoryImpl implements TransactionRepository {
     return {
       [field]: sort.order === SortOptions.ASC ? 'asc' : 'desc',
     };
+  }
+
+  buildWhere(
+    filter?: TransactionPaginationFilter
+  ): Prisma.TransactionWhereInput {
+    const where: Prisma.TransactionWhereInput = {};
+    if (!filter) {
+      return where;
+    }
+
+    if (filter.account) {
+      where.accountId = filter.account;
+    }
+    if (filter.category !== undefined) {
+      where.categoryId = filter.category;
+    }
+    if (filter.search) {
+      where.reference = {
+        contains: filter.search,
+        mode: 'insensitive',
+      };
+    }
+    if (filter.date?.from || filter.date?.to) {
+      where.date = {};
+      if (filter.date?.from) {
+        where.date.gte = filter.date.from;
+      }
+      if (filter.date?.to) {
+        where.date.lte = filter.date.to;
+      }
+    }
+
+    return where;
   }
 
   toModels(prismaTransactions: PrismaTransaction[]): Transaction[] {

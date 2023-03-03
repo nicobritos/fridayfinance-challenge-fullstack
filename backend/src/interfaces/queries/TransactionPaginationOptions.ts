@@ -1,5 +1,5 @@
 import { SortOptions } from '@interfaces/queries/SortOptions';
-import { ID } from '@models/utils/UtilityTypes';
+import { ID, Nullable } from '@models/utils/UtilityTypes';
 import { DateRangeOptions } from '@interfaces/queries/FilterOptions';
 
 export enum TransactionPaginationSortField {
@@ -16,7 +16,7 @@ export interface TransactionPaginationSort {
 
 export interface TransactionPaginationFilter {
   readonly account?: ID;
-  readonly category?: ID;
+  readonly category?: Nullable<ID>;
   readonly date?: DateRangeOptions;
   readonly search?: string;
 }

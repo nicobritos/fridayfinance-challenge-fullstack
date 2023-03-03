@@ -58,7 +58,7 @@ class TransactionResolverImpl implements BaseResolver {
         date: dateFilter,
         // Remove nulls
         account: args.pagination.filter?.account ?? undefined,
-        category: args.pagination.filter?.category ?? undefined,
+        category: args.pagination.filter?.category,
         search: args.pagination.filter?.search ?? undefined,
       };
     }
