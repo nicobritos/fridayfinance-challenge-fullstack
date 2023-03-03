@@ -1,0 +1,8 @@
+type PageInfo {
+    hasNext: Boolean!
+}
+
+interface Pagination {
+    data: [Node!]!
+    pageInfo: PageInfo!
+}

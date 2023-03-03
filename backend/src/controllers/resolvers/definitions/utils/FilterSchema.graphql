@@ -1,0 +1,4 @@
+input DateRangeInput {
+  from: ISODate
+  to: ISODate
+}

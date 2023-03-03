@@ -95,4 +95,4 @@ sw.*
 # Vim swap files
 *.swp
 
-/src/controllers/resolvers/generated.ts
+/backend/src/controllers/resolvers/generated/generated.d.ts

@@ -1,0 +1,44 @@
+type Transaction implements Node {
+  id: ID!
+  account: Account!
+  category: Category
+  reference: String
+  amount: Float!
+  currency: String!
+  date: ISODate!
+}
+
+type TransactionPage implements Pagination {
+  data: [Transaction!]!
+  pageInfo: PageInfo!
+}
+
+enum TransactionPaginationSortField {
+  DATE
+  AMOUNT
+  CATEGORY
+  REFERENCE
+}
+
+input TransactionPaginationSortInput {
+  field: TransactionPaginationSortField!
+  order: SortOrder!
+}
+
+input TransactionPaginationFilterInput {
+  account: ID
+  category: ID
+  date: DateRangeInput
+  search: String
+}
+
+input TransactionPaginationOptionsInput {
+  first: Int!
+  offset: Int
+  filter: TransactionPaginationFilterInput
+  sort: TransactionPaginationSortInput!
+}
+
+extend type Query {
+  listTransactions(pagination: TransactionPaginationOptionsInput!): TransactionPage!
+}
