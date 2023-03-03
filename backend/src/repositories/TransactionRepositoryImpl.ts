@@ -2,12 +2,21 @@ import 'reflect-metadata';
 import { injectable } from 'inversify';
 import lazyInject from '../ioc/LazyInject';
 import TYPES from '../ioc/Types';
-import { PrismaClient, Transaction as PrismaTransaction } from '@prisma/client';
+import {
+  PrismaClient,
+  Transaction as PrismaTransaction,
+  Prisma,
+} from '@prisma/client';
 import { TransactionRepository } from '@interfaces/repositories/TransactionRepository';
 import { Transaction } from '@models/Transaction';
 import { DateTime } from 'luxon';
-import { TransactionPaginationOptions } from '@interfaces/queries/TransactionPaginationOptions';
+import {
+  TransactionPaginationOptions,
+  TransactionPaginationSort,
+  TransactionPaginationSortField,
+} from '@interfaces/queries/TransactionPaginationOptions';
 import { Paginated } from '@interfaces/queries/Paginated';
+import { SortOptions } from '@interfaces/queries/SortOptions';
 
 @injectable()
 export class TransactionRepositoryImpl implements TransactionRepository {
@@ -17,9 +26,11 @@ export class TransactionRepositoryImpl implements TransactionRepository {
   async findAll(
     options: TransactionPaginationOptions
   ): Promise<Paginated<Transaction>> {
+    const orderBy = this.getOrderBy(options.sort);
     let entities = await this.prisma.transaction.findMany({
       skip: options.offset,
       take: options.first + 1,
+      orderBy: [orderBy],
     });
 
     const hasNext = entities.length === options.first + 1;
@@ -33,6 +44,37 @@ export class TransactionRepositoryImpl implements TransactionRepository {
       pageInfo: {
         hasNext,
       },
+    };
+  }
+
+  getOrderBy(
+    sort: TransactionPaginationSort
+  ): Prisma.TransactionOrderByWithRelationInput {
+    let field: keyof Prisma.TransactionOrderByWithRelationInput;
+    switch (sort.field) {
+      case TransactionPaginationSortField.DATE:
+        field = 'date';
+        break;
+      case TransactionPaginationSortField.AMOUNT:
+        field = 'amount';
+        break;
+      case TransactionPaginationSortField.REFERENCE:
+        field = 'reference';
+        break;
+      case TransactionPaginationSortField.CATEGORY:
+        // This is a special case, as we want to sort by the category name,
+        // not its id
+        return {
+          category: {
+            name: sort.order === SortOptions.ASC ? 'asc' : 'desc',
+          },
+        };
+      default:
+        throw new Error('Invalid sort field');
+    }
+
+    return {
+      [field]: sort.order === SortOptions.ASC ? 'asc' : 'desc',
     };
   }
 
