@@ -21,7 +21,7 @@ export default {
   css: ['@/assets/css/main.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: ['~/plugins/ApolloClient.ts'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -51,7 +51,7 @@ export default {
 
   server: {
     host: '0.0.0.0',
-    port: 4000,
+    port: 5010,
   },
 
   apollo: {
