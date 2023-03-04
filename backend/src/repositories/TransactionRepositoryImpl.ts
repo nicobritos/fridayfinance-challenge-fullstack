@@ -92,8 +92,10 @@ export class TransactionRepositoryImpl implements TransactionRepository {
     if (filter.account) {
       where.accountId = filter.account;
     }
-    if (filter.category !== undefined) {
-      where.categoryId = filter.category;
+    if (filter.bank) {
+      where.account = {
+        bank: filter.bank,
+      };
     }
     if (filter.search) {
       where.reference = {

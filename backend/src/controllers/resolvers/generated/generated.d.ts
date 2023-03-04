@@ -84,7 +84,7 @@ export type TransactionPage = Pagination & {
 
 export type TransactionPaginationFilterInput = {
   account?: InputMaybe<Scalars['ID']>;
-  category?: InputMaybe<Scalars['ID']>;
+  bank?: InputMaybe<Scalars['String']>;
   date?: InputMaybe<DateRangeInput>;
   search?: InputMaybe<Scalars['String']>;
 };

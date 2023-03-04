@@ -1,14 +1,22 @@
 <template>
   <AtomRoundedContainer class="flex flex-col h-full">
     <AtomTitle>Transactions</AtomTitle>
-    <MoleculeTransactionFilter :search.sync="search" class="mt-4" />
+    <MoleculeTransactionFilter
+      :selected-account-id.sync="selectedAccountId"
+      :selected-bank-id.sync="selectedBankId"
+      :accounts="accountOptions"
+      :banks="bankOptions"
+      :search.sync="search"
+      class="mt-4"
+    />
     <MoleculeTransactionTable
       :transactions="transactions?.data || null"
       class="mt-3"
     />
     <AtomDivider horizontal />
     <MoleculePagination
-      :page.sync="pageIndex"
+      @update:page="onPageIndexChange"
+      :page="pageIndex"
       :has-next="hasNext"
       :has-previous="hasPrevious"
       class="mt-3"
@@ -28,6 +36,18 @@ import { Paginated } from '~/logic/models/utils/Paginated';
 import { Nullable } from '~/logic/models/utils/UtilityTypes';
 import MoleculePagination from '~/components/molecules/MoleculePagination.vue';
 import AtomDivider from '~/components/atoms/AtomDivider.vue';
+import { Account } from '~/logic/models/Account';
+import EntityInterface from '~/logic/models/utils/EntityInterface';
+
+const GET_ACCOUNTS = gql`
+  query getAccounts {
+    listAccounts {
+      id
+      name
+      bank
+    }
+  }
+`;
 
 const GET_TRANSACTIONS = gql`
   query getTransactions($pagination: TransactionPaginationOptionsInput!) {
@@ -62,9 +82,13 @@ const GET_TRANSACTIONS = gql`
   },
 })
 export default class OrganismTransactionList extends Vue {
+  private accounts: Account[] = [];
+  private banks: string[] = [];
   private transactions: Nullable<Paginated<Transaction>> = null;
   private pageIndex: number = 0;
   private search: Nullable<string> = null;
+  private selectedAccountId: Nullable<string> = null;
+  private selectedBankId: Nullable<number> = null;
 
   get hasNext(): boolean {
     return this.transactions?.pageInfo.hasNext ?? false;
@@ -74,13 +98,42 @@ export default class OrganismTransactionList extends Vue {
     return this.pageIndex >= 1;
   }
 
+  get accountOptions(): EntityInterface[] {
+    return this.accounts.map((account) => ({
+      name: account.name!,
+      id: account.id!,
+    }));
+  }
+
+  get bankOptions(): EntityInterface[] {
+    return this.banks.map((bank, index) => ({
+      name: bank!,
+      id: index!,
+    }));
+  }
+
   public mounted() {
+    this.fetchAccounts();
     this.fetchPage();
   }
 
-  @Watch('pageIndex')
+  public onPageIndexChange(newIndex: number) {
+    this.pageIndex = newIndex;
+    this.fetchPage();
+  }
+
   @Watch('search')
+  @Watch('selectedAccountId')
+  @Watch('selectedBankId')
+  public onFiltersChange() {
+    this.pageIndex = 0;
+    this.fetchPage();
+  }
+
   async fetchPage() {
+    const bankName =
+      this.selectedBankId != null ? this.banks[this.selectedBankId] : null;
+
     this.transactions = (
       await this.$apollo.query({
         query: GET_TRANSACTIONS,
@@ -90,6 +143,8 @@ export default class OrganismTransactionList extends Vue {
             first: 20,
             filter: {
               search: this.search || undefined,
+              bank: bankName || undefined,
+              account: this.selectedAccountId || undefined,
             },
             sort: {
               field: 'DATE',
@@ -99,6 +154,18 @@ export default class OrganismTransactionList extends Vue {
         },
       })
     ).data.listTransactions;
+  }
+
+  async fetchAccounts() {
+    this.accounts = (
+      await this.$apollo.query({
+        query: GET_ACCOUNTS,
+      })
+    ).data.listAccounts;
+
+    this.banks = this.accounts!.map((account) => account.bank).filter(
+      (value, index, array) => value != null && array.indexOf(value) === index
+    ) as string[];
   }
 }
 </script>

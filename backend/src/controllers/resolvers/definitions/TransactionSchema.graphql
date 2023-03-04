@@ -27,7 +27,7 @@ input TransactionPaginationSortInput {
 
 input TransactionPaginationFilterInput {
   account: ID
-  category: ID
+  bank: String
   date: DateRangeInput
   search: String
 }
