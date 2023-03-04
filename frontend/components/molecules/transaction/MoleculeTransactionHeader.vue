@@ -1,9 +1,9 @@
 <template>
   <tr>
-    <AtomRowItem header>Reference</AtomRowItem>
-    <AtomRowItem header>Category</AtomRowItem>
-    <AtomRowItem header>Date</AtomRowItem>
-    <AtomRowItem header>Amount</AtomRowItem>
+    <AtomRowItem header target-class='font-normal text-gray-400'>Reference</AtomRowItem>
+    <AtomRowItem header target-class='font-normal text-gray-400'>Category</AtomRowItem>
+    <AtomRowItem header target-class='font-normal text-gray-400'>Date</AtomRowItem>
+    <AtomRowItem header target-class='font-normal text-gray-400 justify-end'>Amount</AtomRowItem>
   </tr>
 </template>
 
