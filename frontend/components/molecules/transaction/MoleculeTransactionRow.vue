@@ -1,13 +1,13 @@
 <template>
   <tr class="hover:bg-light-gray cursor-pointer transition-colors duration-300">
-    <AtomRowItem :class='referenceTextClass'>{{ transactionReference }}</AtomRowItem>
+    <AtomRowItem class='pl-2' :class='referenceTextClass'>{{ transactionReference }}</AtomRowItem>
     <AtomRowItem>
       <AtomTag :color="categoryColor">
         {{ categoryName }}
       </AtomTag>
     </AtomRowItem>
     <AtomRowItem>{{ transactionDate }}</AtomRowItem>
-    <AtomRowItem target-class='justify-end'>
+    <AtomRowItem class='pr-2' target-class='justify-end'>
       <span>{{ transaction.amount.toFixed(2) }}</span>
       <span class="ml-2 uppercase font-medium text-gray-400">{{ transaction.currency }}</span>
     </AtomRowItem>
