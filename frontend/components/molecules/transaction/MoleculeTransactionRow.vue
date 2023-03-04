@@ -1,13 +1,16 @@
 <template>
   <tr class="hover:bg-light-gray cursor-pointer transition-colors duration-300">
-    <AtomRowItem>{{ transaction.reference }}</AtomRowItem>
+    <AtomRowItem :class='referenceTextClass'>{{ transactionReference }}</AtomRowItem>
     <AtomRowItem>
       <AtomTag :color="categoryColor">
         {{ categoryName }}
       </AtomTag>
     </AtomRowItem>
     <AtomRowItem>{{ transactionDate }}</AtomRowItem>
-    <AtomRowItem>{{ transaction.amount }}</AtomRowItem>
+    <AtomRowItem target-class='justify-end'>
+      <span>{{ transaction.amount.toFixed(2) }}</span>
+      <span class="ml-2 uppercase font-medium text-gray-400">{{ transaction.currency }}</span>
+    </AtomRowItem>
   </tr>
 </template>
 
@@ -24,6 +27,18 @@ import { DateTime } from 'luxon'
 export default class MoleculeTransactionRow extends Vue {
   @Prop({ type: Object, required: true })
   private declare readonly transaction: Transaction;
+
+  get hasReference(): boolean {
+    return !!this.transaction.reference;
+  }
+
+  get transactionReference(): string {
+    return this.hasReference ? this.transaction.reference! : 'Reference not provided';
+  }
+
+  get referenceTextClass(): string {
+    return this.hasReference ? '' : 'text-gray-400';
+  }
 
   get categoryColor(): string {
     return `#${this.transaction.category?.color ?? "b6b6b6"}`;
