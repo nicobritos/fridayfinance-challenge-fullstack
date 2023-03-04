@@ -16,6 +16,9 @@ module.exports = {
       maxWidth: {
         8: '8rem',
       },
+      fontFamily: {
+        inter: ['Inter', 'sans-serif'],
+      },
     },
   },
   content: [
