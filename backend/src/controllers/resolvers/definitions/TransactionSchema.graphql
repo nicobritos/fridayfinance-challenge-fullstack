@@ -40,5 +40,7 @@ input TransactionPaginationOptionsInput {
 }
 
 extend type Query {
-  listTransactions(pagination: TransactionPaginationOptionsInput!): TransactionPage!
+  listTransactions(
+    pagination: TransactionPaginationOptionsInput!
+  ): TransactionPage!
 }

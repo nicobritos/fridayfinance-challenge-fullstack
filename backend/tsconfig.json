@@ -24,21 +24,11 @@
     "noImplicitThis": true,
     "removeComments": true,
     "paths": {
-      "@models/*": [
-        "./src/models/*"
-      ],
-      "@controllers/*": [
-        "./src/controllers/*"
-      ],
-      "@interfaces/*": [
-        "./src/interfaces/*"
-      ],
-      "@services/*": [
-        "./src/services/*"
-      ],
-      "@repositories/*": [
-        "./src/repositories/*"
-      ]
+      "@models/*": ["./src/models/*"],
+      "@controllers/*": ["./src/controllers/*"],
+      "@interfaces/*": ["./src/interfaces/*"],
+      "@services/*": ["./src/services/*"],
+      "@repositories/*": ["./src/repositories/*"]
     },
 
     "types": ["node", "reflect-metadata"]

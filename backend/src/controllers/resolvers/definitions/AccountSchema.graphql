@@ -1,9 +1,9 @@
 type Account implements Node {
-    id: ID!
-    name: String!
-    bank: String!
+  id: ID!
+  name: String!
+  bank: String!
 }
 
 extend type Query {
-    listAccounts: [Account!]!
+  listAccounts: [Account!]!
 }

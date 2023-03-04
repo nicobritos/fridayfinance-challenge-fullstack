@@ -7,9 +7,6 @@
     "nodemon.json",
     "tsconfig.json"
   ],
-  "ignore": [
-    "src/**/*.spec.ts",
-    "src/**/test/**"
-  ],
+  "ignore": ["src/**/*.spec.ts", "src/**/test/**"],
   "ext": "ts js json graphql"
 }

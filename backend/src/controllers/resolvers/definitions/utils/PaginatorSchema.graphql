@@ -1,8 +1,8 @@
 type PageInfo {
-    hasNext: Boolean!
+  hasNext: Boolean!
 }
 
 interface Pagination {
-    data: [Node!]!
-    pageInfo: PageInfo!
+  data: [Node!]!
+  pageInfo: PageInfo!
 }

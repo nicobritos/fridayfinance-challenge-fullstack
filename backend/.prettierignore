@@ -96,3 +96,4 @@ sw.*
 *.swp
 
 /backend/src/controllers/resolvers/generated/generated.d.ts
+/src/controllers/resolvers/generated/generated.d.ts

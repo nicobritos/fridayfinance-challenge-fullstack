@@ -1,9 +1,9 @@
 type Category implements Node {
-    id: ID!
-    name: String!
-    color: String
+  id: ID!
+  name: String!
+  color: String
 }
 
 extend type Query {
-    listCategories: [Category!]!
+  listCategories: [Category!]!
 }
