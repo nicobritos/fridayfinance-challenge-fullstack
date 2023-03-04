@@ -1,6 +1,6 @@
 <template>
   <component :is='rowTag'
-    class="p-0 border-y border-gray-400 overflow-hidden overflow-x-clip h-12 whitespace-nowrap"
+    class="p-0 border-y border-gray-100 overflow-hidden overflow-x-clip h-12 whitespace-nowrap"
   >
     <div class='flex items-center' :class='targetClass'>
       <slot />

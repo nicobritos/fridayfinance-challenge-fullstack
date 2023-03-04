@@ -1,5 +1,5 @@
 <template>
-  <table class="table-auto w-full border-collapse border-y border-gray-400">
+  <table class="table-auto w-full border-collapse border-y border-gray-300">
     <thead class="header">
       <slot name="header" />
     </thead>
