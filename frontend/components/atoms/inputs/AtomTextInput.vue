@@ -1,21 +1,22 @@
 <template>
   <AtomInput
     :type="$attrs.type || 'text'"
-    :value.sync="valueSync"
+    :value.sync="rtValue"
     :placeholder="placeholder"
     :error="error"
     :target-class="targetClass"
     :floating-label="floatingLabel"
     :disabled="disabled"
-    v-on="$listeners"
     :name="name"
     v-bind="$attrs"
   />
 </template>
 
 <script lang="ts">
-import { Component, Prop, PropSync, Vue } from 'vue-property-decorator';
+import { Component, Prop, PropSync, Vue, Watch } from 'vue-property-decorator';
 import AtomInput from '~/components/atoms/inputs/AtomInput.vue';
+import { Nullable } from '~/logic/models/utils/UtilityTypes';
+import { debounce } from 'throttle-debounce';
 
 @Component({
   components: { AtomInput },
@@ -32,9 +33,32 @@ export default class AtomTextInput extends Vue {
   @Prop({ type: Boolean, default: true })
   private declare readonly floatingLabel: string;
   @PropSync('value', { required: true })
-  private declare readonly valueSync: string | null;
+  private declare valueSync: string | null;
   @Prop({ type: String, default: '' })
   private declare readonly name: string;
+  @Prop({ default: null })
+  private declare readonly debounce: Nullable<number>;
+
+  private rtValue: string = '';
+  private debounceFunction: Nullable<Function> = null;
+
+  public created(): void {
+    this.debounceFunction = debounce(this.debounce, () => this.emitNewValue());
+  }
+
+  @Watch('rtValue')
+  public onRtValueChange(): void {
+    if (this.debounce) {
+      this.debounceFunction!();
+    } else {
+      this.emitNewValue();
+    }
+  }
+
+  private emitNewValue(): void {
+    console.log('emitting new value: ' + this.rtValue);
+    this.valueSync = this.rtValue;
+  }
 }
 </script>
 

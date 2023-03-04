@@ -1,7 +1,7 @@
 <template>
   <AtomRoundedContainer class="flex flex-col h-full">
     <AtomTitle>Transactions</AtomTitle>
-    <MoleculeTransactionFilter class="mt-4" />
+    <MoleculeTransactionFilter :search.sync="search" class="mt-4" />
     <MoleculeTransactionTable
       :transactions="transactions?.data || null"
       class="mt-3"
@@ -62,8 +62,9 @@ const GET_TRANSACTIONS = gql`
   },
 })
 export default class OrganismTransactionList extends Vue {
-  private pageIndex: number = 0;
   private transactions: Nullable<Paginated<Transaction>> = null;
+  private pageIndex: number = 0;
+  private search: Nullable<string> = null;
 
   get hasNext(): boolean {
     return this.transactions?.pageInfo.hasNext ?? false;
@@ -78,6 +79,7 @@ export default class OrganismTransactionList extends Vue {
   }
 
   @Watch('pageIndex')
+  @Watch('search')
   async fetchPage() {
     this.transactions = (
       await this.$apollo.query({
@@ -86,6 +88,9 @@ export default class OrganismTransactionList extends Vue {
           pagination: {
             offset: this.pageIndex * 20,
             first: 20,
+            filter: {
+              search: this.search || undefined,
+            },
             sort: {
               field: 'DATE',
               order: 'DESC',

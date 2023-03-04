@@ -2,7 +2,8 @@
   <div class="flex items-end space-x-4">
     <AtomTextInput
       title="Search"
-      value=""
+      :value.sync="searchSync"
+      :debounce="200"
       placeholder="Search by bank, account, reference, category, date, amount, currency..."
       target-class="w-full"
       class="flex-grow flex-shrink-0"
@@ -39,14 +40,17 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, PropSync, Vue } from 'vue-property-decorator';
 import AtomTextInput from '~/components/atoms/inputs/AtomTextInput.vue';
 import AtomInput from '~/components/atoms/inputs/AtomInput.vue';
 
 @Component({
   components: { AtomInput, AtomTextInput },
 })
-export default class MoleculeTransactionFilter extends Vue {}
+export default class MoleculeTransactionFilter extends Vue {
+  @PropSync('search', { required: true })
+  private declare readonly searchSync: string | null;
+}
 </script>
 
 <style scoped></style>
