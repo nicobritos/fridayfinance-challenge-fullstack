@@ -6,7 +6,7 @@ import { TransactionRepository } from '@interfaces/repositories/TransactionRepos
 import { Transaction } from '@models/Transaction';
 import { TransactionService } from '@interfaces/services/TransactionService';
 import { TransactionPaginationOptions } from '@interfaces/queries/TransactionPaginationOptions';
-import { Paginated } from '@interfaces/queries/Paginated';
+import { Paginated } from '@models/utils/Paginated';
 
 @injectable()
 export class TransactionServiceImpl implements TransactionService {

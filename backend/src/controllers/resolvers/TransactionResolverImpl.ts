@@ -11,7 +11,7 @@ import {
 } from '@interfaces/queries/TransactionPaginationOptions';
 import { DateRangeOptions } from '@interfaces/queries/FilterOptions';
 import { SortOptions } from '@interfaces/queries/SortOptions';
-import { Paginated } from '@interfaces/queries/Paginated';
+import { Paginated } from '@models/utils/Paginated';
 import { Transaction } from '@models/Transaction';
 import { AccountService } from '@interfaces/services/AccountService';
 import { Account } from '@models/Account';

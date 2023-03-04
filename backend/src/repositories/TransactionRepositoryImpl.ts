@@ -16,7 +16,7 @@ import {
   TransactionPaginationSort,
   TransactionPaginationSortField,
 } from '@interfaces/queries/TransactionPaginationOptions';
-import { Paginated } from '@interfaces/queries/Paginated';
+import { Paginated } from '@models/utils/Paginated';
 import { SortOptions } from '@interfaces/queries/SortOptions';
 
 @injectable()
