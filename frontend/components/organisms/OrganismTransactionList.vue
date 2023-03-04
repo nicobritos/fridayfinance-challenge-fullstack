@@ -2,7 +2,7 @@
   <AtomRoundedContainer class="flex flex-col">
     <AtomTitle>Transactions</AtomTitle>
     <MoleculeTransactionFilter />
-    <MoleculeTransactionTable class="mt-2" />
+    <MoleculeTransactionTable :transactions='transactions?.data || null' class="mt-2" />
   </AtomRoundedContainer>
 </template>
 
@@ -12,6 +12,32 @@ import AtomTitle from '~/components/atoms/AtomTitle.vue';
 import AtomRoundedContainer from '~/components/atoms/containers/AtomRoundedContainer.vue';
 import MoleculeTransactionFilter from '~/components/molecules/transaction/MoleculeTransactionFilter.vue';
 import MoleculeTransactionTable from '~/components/molecules/transaction/MoleculeTransactionTable.vue';
+import gql from 'graphql-tag';
+import { Transaction } from '~/logic/models/Transaction'
+import { Paginated } from '~/logic/models/utils/Paginated'
+import { Nullable } from '~/logic/models/utils/UtilityTypes'
+
+const GET_TRANSACTIONS = gql`
+  query getTransactions {
+    listTransactions(pagination: { first: 20, offset: 0, sort: { field: DATE, order: DESC }}) {
+      data {
+        id
+        date
+        amount
+        reference
+        currency
+        category {
+          id
+          name
+          color
+        }
+      }
+      pageInfo {
+        hasNext
+      }
+    }
+  }
+`;
 
 @Component({
   components: {
@@ -22,6 +48,14 @@ import MoleculeTransactionTable from '~/components/molecules/transaction/Molecul
   },
 })
 export default class OrganismTransactionList extends Vue {
+  private transactions: Nullable<Paginated<Transaction>> = null;
+
+  public async mounted() {
+    this.transactions = (await this.$apollo
+      .query({
+        query: GET_TRANSACTIONS,
+      })).data.listTransactions;
+  }
 }
 </script>
 
