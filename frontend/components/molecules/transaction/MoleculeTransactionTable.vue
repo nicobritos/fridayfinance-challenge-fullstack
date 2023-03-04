@@ -1,13 +1,11 @@
 <template>
-  <div class="flex items-end space-x-4">
-    <AtomTable v-if='!!transactions' >
-      <template #header>
-        <MoleculeTransactionHeader />
-      </template>
+   <AtomTable v-if='!!transactions'>
+    <template #header>
+      <MoleculeTransactionHeader />
+    </template>
 
-      <MoleculeTransactionRow v-for='item in transactions' :transaction="item" :key='item.id' />
-    </AtomTable>
-  </div>
+    <MoleculeTransactionRow v-for='item in transactions' :transaction="item" :key='item.id' />
+  </AtomTable>
 </template>
 
 <script lang="ts">

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex" :class="classString">
+  <div :class="classString">
     <slot />
   </div>
 </template>

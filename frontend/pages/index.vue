@@ -1,6 +1,6 @@
 <template>
-  <div class="flex justify-center py-4 w-full">
-    <OrganismTransactionList class="w-3/4 text-xs" />
+  <div class="flex justify-center py-4 w-full h-screen overflow-hidden">
+    <OrganismTransactionList class="w-3/4 text-xs max-h-full" />
   </div>
 </template>
 
