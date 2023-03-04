@@ -1,13 +1,15 @@
 <template>
-  <AtomRoundedContainer class="flex flex-col">
+  <AtomRoundedContainer class="flex flex-col h-full">
     <AtomTitle>Transactions</AtomTitle>
     <MoleculeTransactionFilter class='mt-4' />
     <MoleculeTransactionTable :transactions='transactions?.data || null' class="mt-3" />
+    <AtomDivider horizontal/>
+    <MoleculePagination :page.sync='pageIndex' :has-next='hasNext' :has-previous='hasPrevious' class='mt-3'/>
   </AtomRoundedContainer>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator'
 import AtomTitle from '~/components/atoms/AtomTitle.vue';
 import AtomRoundedContainer from '~/components/atoms/containers/AtomRoundedContainer.vue';
 import MoleculeTransactionFilter from '~/components/molecules/transaction/MoleculeTransactionFilter.vue';
@@ -16,10 +18,12 @@ import gql from 'graphql-tag';
 import { Transaction } from '~/logic/models/Transaction'
 import { Paginated } from '~/logic/models/utils/Paginated'
 import { Nullable } from '~/logic/models/utils/UtilityTypes'
+import MoleculePagination from '~/components/molecules/MoleculePagination.vue'
+import AtomDivider from '~/components/atoms/AtomDivider.vue'
 
 const GET_TRANSACTIONS = gql`
-  query getTransactions {
-    listTransactions(pagination: { first: 50, offset: 0, sort: { field: DATE, order: DESC }}) {
+  query getTransactions($pagination: TransactionPaginationOptionsInput!) {
+    listTransactions(pagination: $pagination) {
       data {
         id
         date
@@ -41,6 +45,8 @@ const GET_TRANSACTIONS = gql`
 
 @Component({
   components: {
+    AtomDivider,
+    MoleculePagination,
     MoleculeTransactionTable,
     MoleculeTransactionFilter,
     AtomRoundedContainer,
@@ -48,12 +54,36 @@ const GET_TRANSACTIONS = gql`
   },
 })
 export default class OrganismTransactionList extends Vue {
+  private pageIndex: number = 0;
   private transactions: Nullable<Paginated<Transaction>> = null;
 
-  public async mounted() {
+  get hasNext(): boolean {
+    return this.transactions?.pageInfo.hasNext ?? false;
+  }
+
+  get hasPrevious(): boolean {
+    return this.pageIndex >= 1;
+  }
+
+  public mounted() {
+    this.fetchPage();
+  }
+
+  @Watch('pageIndex')
+  async fetchPage() {
     this.transactions = (await this.$apollo
       .query({
         query: GET_TRANSACTIONS,
+        variables: {
+          pagination: {
+            offset: this.pageIndex * 20,
+            first: 20,
+            sort: {
+              field: 'DATE',
+              order: 'DESC',
+            }
+          },
+        },
       })).data.listTransactions;
   }
 }

@@ -26,11 +26,11 @@ export default class AtomDivider extends Vue {
 <style scoped>
 .vertical,
 .horizontal {
-  background-color: #a0aec0;
+  background-color: #e2e8f0;
 }
 .vertical.strong,
 .horizontal.strong {
-  background-color: #909cab;
+  background-color: #e2e8f0;
 }
 
 .horizontal {
