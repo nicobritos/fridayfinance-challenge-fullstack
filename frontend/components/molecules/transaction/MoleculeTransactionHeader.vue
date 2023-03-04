@@ -1,9 +1,20 @@
 <template>
   <tr>
-    <AtomRowItem header class='pl-2' target-class='font-normal text-gray-400'>Reference</AtomRowItem>
-    <AtomRowItem header class='' target-class='font-normal text-gray-400'>Category</AtomRowItem>
-    <AtomRowItem header class='' target-class='font-normal text-gray-400'>Date</AtomRowItem>
-    <AtomRowItem header class='pr-2' target-class='font-normal text-gray-400 justify-end'>Amount</AtomRowItem>
+    <AtomRowItem header class="pl-2" target-class="font-normal text-gray-400"
+      >Reference</AtomRowItem
+    >
+    <AtomRowItem header class="" target-class="font-normal text-gray-400"
+      >Category</AtomRowItem
+    >
+    <AtomRowItem header class="" target-class="font-normal text-gray-400"
+      >Date</AtomRowItem
+    >
+    <AtomRowItem
+      header
+      class="pr-2"
+      target-class="font-normal text-gray-400 justify-end"
+      >Amount</AtomRowItem
+    >
   </tr>
 </template>
 

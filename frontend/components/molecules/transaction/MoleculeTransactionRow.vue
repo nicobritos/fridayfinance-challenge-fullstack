@@ -1,15 +1,19 @@
 <template>
   <tr class="hover:bg-light-gray cursor-pointer transition-colors duration-300">
-    <AtomRowItem class='pl-2' :class='referenceTextClass'>{{ transactionReference }}</AtomRowItem>
+    <AtomRowItem class="pl-2" :class="referenceTextClass">{{
+      transactionReference
+    }}</AtomRowItem>
     <AtomRowItem>
       <AtomTag :color="categoryColor">
         {{ categoryName }}
       </AtomTag>
     </AtomRowItem>
     <AtomRowItem>{{ transactionDate }}</AtomRowItem>
-    <AtomRowItem class='pr-2' target-class='justify-end'>
+    <AtomRowItem class="pr-2" target-class="justify-end">
       <span>{{ transaction.amount.toFixed(2) }}</span>
-      <span class="ml-2 uppercase font-medium text-gray-400">{{ transaction.currency }}</span>
+      <span class="ml-2 uppercase font-medium text-gray-400">{{
+        transaction.currency
+      }}</span>
     </AtomRowItem>
   </tr>
 </template>
@@ -19,7 +23,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import { Transaction } from '~/logic/models/Transaction';
 import AtomRowItem from '~/components/atoms/containers/AtomRowItem.vue';
 import AtomTag from '~/components/atoms/AtomTag.vue';
-import { DateTime } from 'luxon'
+import { DateTime } from 'luxon';
 
 @Component({
   components: { AtomTag, AtomRowItem },
@@ -33,7 +37,9 @@ export default class MoleculeTransactionRow extends Vue {
   }
 
   get transactionReference(): string {
-    return this.hasReference ? this.transaction.reference! : 'Reference not provided';
+    return this.hasReference
+      ? this.transaction.reference!
+      : 'Reference not provided';
   }
 
   get referenceTextClass(): string {
@@ -41,7 +47,7 @@ export default class MoleculeTransactionRow extends Vue {
   }
 
   get categoryColor(): string {
-    return `#${this.transaction.category?.color ?? "b6b6b6"}`;
+    return `#${this.transaction.category?.color ?? 'b6b6b6'}`;
   }
 
   get categoryName(): string {

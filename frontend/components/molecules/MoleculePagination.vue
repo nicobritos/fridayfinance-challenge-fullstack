@@ -1,28 +1,17 @@
 <template>
-  <div class='flex items-center justify-center'>
+  <div class="flex items-center justify-center">
     <div class="flex justify-center items-center space-x-1 bg-gray-200 rounded">
-      <AtomButton
-        :disabled="!hasPrevious"
-        rounded
-        @click="previousPage"
-      >
+      <AtomButton :disabled="!hasPrevious" rounded @click="previousPage">
         <i class="fas fa-chevron-left mr-1" />
-        <span>
-        Previous
-      </span>
+        <span> Previous </span>
       </AtomButton>
 
       <span>
-      {{ displayPage }}
-    </span>
-
-      <AtomButton
-        :disabled="!hasNext"
-        @click="nextPage"
-      >
-      <span>
-        Next
+        {{ displayPage }}
       </span>
+
+      <AtomButton :disabled="!hasNext" @click="nextPage">
+        <span> Next </span>
         <i class="fas fa-chevron-right ml-1" />
       </AtomButton>
     </div>
@@ -31,10 +20,10 @@
 
 <script lang="ts">
 import { Component, Prop, PropSync, Vue } from 'vue-property-decorator';
-import AtomButton from '~/components/atoms/AtomButton.vue'
+import AtomButton from '~/components/atoms/AtomButton.vue';
 
 @Component({
-  components: { AtomButton }
+  components: { AtomButton },
 })
 export default class MoleculePagination extends Vue {
   @PropSync('page', { required: true })

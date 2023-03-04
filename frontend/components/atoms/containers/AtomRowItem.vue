@@ -1,15 +1,16 @@
 <template>
-  <component :is='rowTag'
+  <component
+    :is="rowTag"
     class="p-0 border-y border-gray-100 overflow-hidden overflow-x-clip h-12 whitespace-nowrap"
   >
-    <div class='flex items-center' :class='targetClass'>
+    <div class="flex items-center" :class="targetClass">
       <slot />
     </div>
   </component>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component({})
 export default class AtomRowItem extends Vue {

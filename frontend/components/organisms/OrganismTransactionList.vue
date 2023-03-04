@@ -1,25 +1,33 @@
 <template>
   <AtomRoundedContainer class="flex flex-col h-full">
     <AtomTitle>Transactions</AtomTitle>
-    <MoleculeTransactionFilter class='mt-4' />
-    <MoleculeTransactionTable :transactions='transactions?.data || null' class="mt-3" />
-    <AtomDivider horizontal/>
-    <MoleculePagination :page.sync='pageIndex' :has-next='hasNext' :has-previous='hasPrevious' class='mt-3'/>
+    <MoleculeTransactionFilter class="mt-4" />
+    <MoleculeTransactionTable
+      :transactions="transactions?.data || null"
+      class="mt-3"
+    />
+    <AtomDivider horizontal />
+    <MoleculePagination
+      :page.sync="pageIndex"
+      :has-next="hasNext"
+      :has-previous="hasPrevious"
+      class="mt-3"
+    />
   </AtomRoundedContainer>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator'
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import AtomTitle from '~/components/atoms/AtomTitle.vue';
 import AtomRoundedContainer from '~/components/atoms/containers/AtomRoundedContainer.vue';
 import MoleculeTransactionFilter from '~/components/molecules/transaction/MoleculeTransactionFilter.vue';
 import MoleculeTransactionTable from '~/components/molecules/transaction/MoleculeTransactionTable.vue';
 import gql from 'graphql-tag';
-import { Transaction } from '~/logic/models/Transaction'
-import { Paginated } from '~/logic/models/utils/Paginated'
-import { Nullable } from '~/logic/models/utils/UtilityTypes'
-import MoleculePagination from '~/components/molecules/MoleculePagination.vue'
-import AtomDivider from '~/components/atoms/AtomDivider.vue'
+import { Transaction } from '~/logic/models/Transaction';
+import { Paginated } from '~/logic/models/utils/Paginated';
+import { Nullable } from '~/logic/models/utils/UtilityTypes';
+import MoleculePagination from '~/components/molecules/MoleculePagination.vue';
+import AtomDivider from '~/components/atoms/AtomDivider.vue';
 
 const GET_TRANSACTIONS = gql`
   query getTransactions($pagination: TransactionPaginationOptionsInput!) {
@@ -71,8 +79,8 @@ export default class OrganismTransactionList extends Vue {
 
   @Watch('pageIndex')
   async fetchPage() {
-    this.transactions = (await this.$apollo
-      .query({
+    this.transactions = (
+      await this.$apollo.query({
         query: GET_TRANSACTIONS,
         variables: {
           pagination: {
@@ -81,10 +89,11 @@ export default class OrganismTransactionList extends Vue {
             sort: {
               field: 'DATE',
               order: 'DESC',
-            }
+            },
           },
         },
-      })).data.listTransactions;
+      })
+    ).data.listTransactions;
   }
 }
 </script>
