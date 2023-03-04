@@ -1,8 +1,8 @@
 <template>
   <AtomRoundedContainer class="flex flex-col">
     <AtomTitle>Transactions</AtomTitle>
-    <MoleculeTransactionFilter />
-    <MoleculeTransactionTable :transactions='transactions?.data || null' class="mt-2" />
+    <MoleculeTransactionFilter class='mt-4' />
+    <MoleculeTransactionTable :transactions='transactions?.data || null' class="mt-3" />
   </AtomRoundedContainer>
 </template>
 
@@ -19,7 +19,7 @@ import { Nullable } from '~/logic/models/utils/UtilityTypes'
 
 const GET_TRANSACTIONS = gql`
   query getTransactions {
-    listTransactions(pagination: { first: 20, offset: 0, sort: { field: DATE, order: DESC }}) {
+    listTransactions(pagination: { first: 50, offset: 0, sort: { field: DATE, order: DESC }}) {
       data {
         id
         date

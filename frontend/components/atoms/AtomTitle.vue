@@ -1,5 +1,5 @@
 <template>
-  <h3 class="text-lg font-bold"><slot /></h3>
+  <h3 class="text-base font-bold"><slot /></h3>
 </template>
 
 <script lang="ts">
