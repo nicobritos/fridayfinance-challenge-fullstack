@@ -1,10 +1,10 @@
 <template>
-  <div class="bg-accent-2 grid grid-cols-12 w-full">
-    <AtomRowItem class="col-span-5">Reference</AtomRowItem>
-    <AtomRowItem class="col-span-3">Category</AtomRowItem>
-    <AtomRowItem class="col-span-2">Date</AtomRowItem>
-    <AtomRowItem class="col-span-2">Amount</AtomRowItem>
-  </div>
+  <tr>
+    <AtomRowItem header>Reference</AtomRowItem>
+    <AtomRowItem header>Category</AtomRowItem>
+    <AtomRowItem header>Date</AtomRowItem>
+    <AtomRowItem header>Amount</AtomRowItem>
+  </tr>
 </template>
 
 <script lang="ts">

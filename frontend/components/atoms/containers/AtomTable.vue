@@ -1,17 +1,13 @@
 <template>
-  <div class="w-full">
-    <AtomDivider class="mb-1" horizontal strong />
-    <div class="header">
+  <table class="table-auto w-full border-collapse border-y border-gray-400">
+    <thead class="header">
       <slot name="header" />
-    </div>
-    <AtomDivider class="mb-1" horizontal strong />
+    </thead>
 
-    <div class="w-full" v-for="(item, index) in items" :key="index">
-      <slot name="odd" v-if="isOdd(index)" :item="item" :index="index" />
-      <slot name="even" v-else :item="item" :index="index" />
-      <AtomDivider v-if="index + 1 < items.length" class="my-1" horizontal />
-    </div>
-  </div>
+    <tbody>
+      <slot/>
+    </tbody>
+  </table>
 </template>
 
 <script lang="ts">
@@ -24,12 +20,6 @@ import AtomDivider from '~/components/atoms/AtomDivider.vue';
 export default class AtomTable extends Vue {
   @Prop({ type: Array, required: true })
   private declare readonly items: any[];
-
-  isOdd(index: number): boolean {
-    // Index is 0 based, and we naturally start at 1, so that the first
-    // row is odd.
-    return (index + 1) % 2 === 0;
-  }
 }
 </script>
 

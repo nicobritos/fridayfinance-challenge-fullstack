@@ -1,16 +1,25 @@
 <template>
-  <div
-    class="overflow-hidden overflow-x-clip h-12 whitespace-nowrap flex items-center"
+  <component :is='rowTag'
+    class="p-0 border-y border-gray-400 overflow-hidden overflow-x-clip h-12 whitespace-nowrap"
   >
-    <slot />
-  </div>
+    <div class='flex items-center'>
+      <slot />
+    </div>
+  </component>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component({})
-export default class AtomRowItem extends Vue {}
+export default class AtomRowItem extends Vue {
+  @Prop({ type: Boolean, default: () => false })
+  private declare readonly header: boolean;
+
+  get rowTag(): string {
+    return this.header ? 'th' : 'td';
+  }
+}
 </script>
 
 <style scoped></style>
