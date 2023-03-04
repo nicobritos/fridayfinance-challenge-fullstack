@@ -1,8 +1,8 @@
 <template>
   <div>
-    <p v-if="!!title" class="text-gray-700">{{ title }}</p>
+    <p v-if="!!title" class="text-gray-400">{{ title }}</p>
     <div
-      class="mt-1 inline-block border border-gray-400 hover:border-accent-2 focus:border-accent transition duration-300 pl-2 w-full"
+      class="mt-1 inline-block border border-gray-300 hover:border-accent-2 focus:border-accent transition duration-300 pl-2 w-full"
     >
       <span
         v-if="showPrepend"
