@@ -34,4 +34,9 @@ model Transaction {
   amount     Decimal   @db.Decimal(14, 2)
   currency   String    @db.Char(3)
   date       DateTime
+
+  @@index(fields: [currency], type: Hash)
+  @@index(fields: [amount], type: Hash)
+  @@index(fields: [accountId], type: Hash)
+  @@index([date])
 }
