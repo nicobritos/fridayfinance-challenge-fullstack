@@ -14,32 +14,33 @@ It uses the following technologies:
 
 ## Features
 The following features are implemented:
-[x] Display a list of transactions.
-[x] Display information about a transaction in another page.
-[x] Change a transaction's category to an existing one.
+* Display a list of transactions.
+* Display information about a transaction in another page.
+* Change a transaction's category to an existing one.
 
 Due to time constraints, the following things have not made it into
 this solution:
-[ ] Create a new category.
-[ ] Internalization
-[ ] Tests
-[ ] Error management
-[ ] Sorting (currently uses date DESC)
-[ ] Responsive with media breakpoints
-[ ] 404 page
-[ ] Caching listCategories query in Vuex store
+* Create a new category.
+* Internalization
+* Tests
+* Error management
+* Sorting (currently uses date DESC)
+* Responsive with media breakpoints
+* 404 page
+* Caching listCategories query in Vuex store
 
-The following things have been taken into consideration:
-[x] Filtering by reference, bank, account and date range
-[x] Pagination (20 items per page, offset based)
-[x] Docker and Docker compose
-[x] Typescript
-[x] Code quality
-[x] Linting - Formatting
-[x] Commit names
-[x] Atomic design for the frontend
-[x] Loading indicators and some transitions
-[x] UI/UX
+The following aspects have been taken into consideration:
+* Filtering by reference, bank, account and date range
+* Pagination (20 items per page, offset based)
+* Docker and Docker compose
+* Automatic database creation and seeding
+* Typescript
+* Code architecture
+* Linting - Formatting
+* Commit names
+* Atomic design for the frontend
+* Loading indicators and some transitions
+* UI/UX
 
 ## General overview
 The application is split into two parts:
