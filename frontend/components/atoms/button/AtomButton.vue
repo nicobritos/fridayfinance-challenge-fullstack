@@ -1,6 +1,6 @@
 <template>
   <button
-    class="text-center block flex-shrink-0 bg-transparent text-black select-none focus:outline-none cursor-pointer transition duration-100"
+    class="text-center block flex-shrink-0 bg-transparent text-black select-none focus:outline-none transition duration-100"
     :class="disabledClass"
     :disabled="disabled"
     @click="click"
@@ -26,7 +26,7 @@ export default class AtomButton extends Vue {
   get disabledClass(): string {
     let c = this.disabled
       ? 'opacity-50 cursor-not-allowed'
-      : 'hover:border-transparent';
+      : 'cursor-pointer hover:border-transparent';
     if (this.rounded) c += ' rounded-sm';
     return c;
   }

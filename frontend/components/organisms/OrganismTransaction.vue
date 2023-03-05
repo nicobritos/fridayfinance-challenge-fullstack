@@ -7,8 +7,15 @@
     <AtomTransactionIdDate :transaction="transaction" />
     <MoleculeTransactionAmount :transaction="transaction" />
     <MoleculeTransactionReference :transaction="transaction" />
-    <MoleculeTransactionCategory :transaction="transaction" />
-    <MoleculeConfirmCancelButtons />
+    <MoleculeTransactionCategory
+      :transaction="transaction"
+      :categories="categories"
+      @on-category-selected="onCategorySelected"
+    />
+    <MoleculeConfirmCancelButtons
+      :disable-cancel="!hasChangedCategory"
+      :disable-confirm="!hasChangedCategory"
+    />
   </AtomRoundedContainer>
 </template>
 
@@ -30,6 +37,8 @@ import MoleculeTransactionAmount from '~/components/molecules/transaction/Molecu
 import MoleculeTransactionReference from '~/components/molecules/transaction/MoleculeTransactionReference.vue';
 import MoleculeTransactionCategory from '~/components/molecules/transaction/MoleculeTransactionCategory.vue';
 import AtomTransactionIdDate from '~/components/atoms/transaction/AtomTransactionIdDate.vue';
+import { Category } from '~/logic/models/Category';
+import { Nullable } from '~/logic/models/utils/UtilityTypes';
 
 @Component({
   components: {
@@ -53,6 +62,25 @@ import AtomTransactionIdDate from '~/components/atoms/transaction/AtomTransactio
 export default class OrganismTransaction extends Vue {
   @Prop({ type: Object, required: true })
   private declare readonly transaction: Transaction;
+  @Prop({ type: Array, required: true })
+  private declare readonly categories: Category[];
+
+  private newCategory: Nullable<Category> = null;
+  private unselectCategory: boolean = false;
+
+  get hasChangedCategory(): boolean {
+    return (
+      this.newCategory &&
+      !this.unselectCategory &&
+      this.newCategory?.id !== this.transaction.category?.id
+    );
+  }
+
+  public onCategorySelected(category?: Category): void {
+    console.log('onCategorySelected', category);
+    this.newCategory = category;
+    this.unselectCategory = !category;
+  }
 }
 </script>
 

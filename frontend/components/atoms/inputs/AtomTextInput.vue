@@ -51,7 +51,9 @@ export default class AtomTextInput extends Vue {
 
   public created(): void {
     if (this.debounce != null) {
-      this.debounceFunction = debounce(this.debounce!, () => this.emitNewValue())
+      this.debounceFunction = debounce(this.debounce!, () =>
+        this.emitNewValue()
+      );
     }
   }
 

@@ -2,6 +2,7 @@
   <div
     class="flex items-center justify-center py-1.5 px-2 rounded"
     :style="colorStyle"
+    @click="$emit('click')"
   >
     <slot />
   </div>

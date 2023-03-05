@@ -4,6 +4,7 @@
       <OrganismTransaction
         v-if="!isLoading"
         :transaction="transaction"
+        :categories="categories"
         class="flex flex-col h-full w-3/4 text-xs max-h-full"
       />
       <AtomRoundedContainer
@@ -26,6 +27,7 @@ import AtomTitle from '~/components/atoms/AtomTitle.vue';
 import OrganismTransaction from '~/components/organisms/OrganismTransaction.vue';
 import LoadingSpinner from '~/components/animations/LoadingSpinner.vue';
 import FadeTransition from '~/components/animations/FadeTransition.vue';
+import { Category } from '~/logic/models/Category';
 
 // TODO: Account in store
 const GET_TRANSACTION = gql`
@@ -50,6 +52,16 @@ const GET_TRANSACTION = gql`
   }
 `;
 
+const GET_CATEGORIES = gql`
+  query listCategories {
+    listCategories {
+      id
+      name
+      color
+    }
+  }
+`;
+
 @Component({
   components: {
     FadeTransition,
@@ -61,6 +73,7 @@ const GET_TRANSACTION = gql`
 })
 export default class TransactionPage extends Vue {
   private transaction: Nullable<Transaction> = null;
+  private categories: Nullable<Category[]> = null;
   private showTransaction: boolean = false;
 
   get transactionId() {
@@ -68,7 +81,11 @@ export default class TransactionPage extends Vue {
   }
 
   get isLoading() {
-    return this.transaction == null || !this.showTransaction;
+    return (
+      this.transaction == null ||
+      this.categories == null ||
+      !this.showTransaction
+    );
   }
 
   public created() {
@@ -79,6 +96,7 @@ export default class TransactionPage extends Vue {
 
   public mounted() {
     this.fetchTransaction();
+    this.fetchCategories();
   }
 
   async fetchTransaction() {
@@ -90,6 +108,14 @@ export default class TransactionPage extends Vue {
         },
       })
     ).data.getTransaction;
+  }
+
+  async fetchCategories() {
+    this.categories = (
+      await this.$apollo.query({
+        query: GET_CATEGORIES,
+      })
+    ).data.listCategories;
   }
 }
 </script>

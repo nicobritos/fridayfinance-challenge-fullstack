@@ -29,8 +29,19 @@ export default class AtomElevatedButton extends Vue {
   private declare readonly primary: boolean;
 
   get colorClass(): string {
-    if (this.primary) return 'bg-accent hover:bg-accent-3 active:bg-accent-4';
-    return 'bg-gray-200 hover:bg-gray-300 active:bg-gray-400';
+    if (this.primary) {
+      if (this.disabled) {
+        return 'bg-accent cursor-not-allowed';
+      } else {
+        return 'bg-accent hover:bg-accent-3 active:bg-accent-4';
+      }
+    } else {
+      if (this.disabled) {
+        return 'bg-gray-200 cursor-not-allowed';
+      } else {
+        return 'bg-gray-200 hover:bg-gray-300 active:bg-gray-400';
+      }
+    }
   }
 
   @Emit()
