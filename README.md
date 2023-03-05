@@ -26,11 +26,10 @@ this solution:
 * Error management
 * Sorting (currently uses date DESC)
 * Responsive with media breakpoints
-* 404 page
-* Caching listCategories query in Vuex store
 
 The following aspects have been taken into consideration:
 * Filtering by reference, bank, account and date range
+* Usage of Vuex store to centralize API Queries
 * Pagination (20 items per page, offset based)
 * Docker and Docker compose
 * Automatic database creation and seeding
@@ -41,6 +40,7 @@ The following aspects have been taken into consideration:
 * Atomic design for the frontend
 * Loading indicators and some transitions
 * UI/UX
+* 404 and error page
 
 ## General overview
 The application is split into two parts:
