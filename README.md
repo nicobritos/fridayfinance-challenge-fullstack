@@ -29,6 +29,8 @@ this solution:
 
 The following aspects have been taken into consideration:
 * Filtering by reference, bank, account and date range
+* Search by reference, amount and currency
+* Indexes where needed for performance
 * Usage of Vuex store to centralize API Queries
 * Pagination (20 items per page, offset based)
 * Docker and Docker compose
