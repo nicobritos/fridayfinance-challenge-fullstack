@@ -9,7 +9,14 @@
     :disabled="disabled"
     :name="name"
     v-bind="$attrs"
-  />
+  >
+    <template v-slot:prepend v-if="$slots.prepend">
+      <slot name="prepend" />
+    </template>
+    <template v-slot:append v-if="$slots.append">
+      <slot name="append" />
+    </template>
+  </AtomInput>
 </template>
 
 <script lang="ts">

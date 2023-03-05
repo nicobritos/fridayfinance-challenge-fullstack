@@ -2,13 +2,13 @@
   <div>
     <p v-if="!!title" class="text-gray-400">{{ title }}</p>
     <div
-      class="mt-1 inline-block border border-gray-300 h-6 hover:border-accent-2 focus:border-accent transition duration-300 pl-2 w-full"
+      class="relative mt-1 inline-block border border-gray-300 h-6 hover:border-accent-2 focus:border-accent transition duration-300 pl-2 w-full"
     >
       <span
         v-if="showPrepend"
         @click="focusInput"
         ref="prepend"
-        class="absolute bottom-0 prepend fill-current input-underline-on-hover cursor-text"
+        class="absolute top-1 prepend fill-current input-underline-on-hover cursor-text text-gray-400"
         :class="slotClass"
         :disabled="disabled"
       >
@@ -18,7 +18,7 @@
         v-if="showAppend"
         @click="focusInput"
         ref="append"
-        class="absolute bottom-0 append right-0 fill-current input-underline-on-hover cursor-text"
+        class="absolute top-1 append right-px fill-current input-underline-on-hover cursor-text text-gray-400"
         :class="slotClass"
         :disabled="disabled"
       >
@@ -36,6 +36,8 @@
         @keydown="keyPress"
         v-on="$listeners"
         :name="name"
+        v-maska
+        :data-maska="mask"
       />
     </div>
   </div>
@@ -51,8 +53,14 @@ import {
   Vue,
   Watch,
 } from 'vue-property-decorator';
+import { vMaska } from 'maska';
+import { Nullable } from '~/logic/models/utils/UtilityTypes';
 
-@Component
+@Component({
+  directives: {
+    maska: vMaska,
+  },
+})
 export default class AtomInput extends Vue {
   @Ref('prepend')
   private declare readonly prependEl: HTMLElement;
@@ -72,6 +80,8 @@ export default class AtomInput extends Vue {
   private declare readonly name: string;
   @Prop({ type: String, default: '' })
   private declare readonly title: string;
+  @Prop({ default: null })
+  private declare readonly mask: Nullable<string>;
 
   get outerClass(): string {
     return '';

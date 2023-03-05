@@ -20,6 +20,7 @@
     "graphql": "^16.6.0",
     "graphql-tag": "^2.12.6",
     "luxon": "^3.2.1",
+    "maska": "^2.1.7",
     "nuxt": "^2.15.8",
     "throttle-debounce": "^5.0.0",
     "vue": "^2.7.10",

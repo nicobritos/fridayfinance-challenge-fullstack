@@ -106,10 +106,10 @@ export class TransactionRepositoryImpl implements TransactionRepository {
     if (filter.date?.from || filter.date?.to) {
       where.date = {};
       if (filter.date?.from) {
-        where.date.gte = filter.date.from;
+        where.date.gte = DateTime.fromISO(filter.date.from).toJSDate();
       }
       if (filter.date?.to) {
-        where.date.lte = filter.date.to;
+        where.date.lte = DateTime.fromISO(filter.date.to).toJSDate();
       }
     }
 

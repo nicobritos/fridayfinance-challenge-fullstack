@@ -4,6 +4,8 @@
     <MoleculeTransactionFilter
       :selected-account-id.sync="selectedAccountId"
       :selected-bank-id.sync="selectedBankId"
+      :to-date.sync="toDate"
+      :from-date.sync="fromDate"
       :accounts="accountOptions"
       :banks="bankOptions"
       :search.sync="search"
@@ -38,6 +40,7 @@ import MoleculePagination from '~/components/molecules/MoleculePagination.vue';
 import AtomDivider from '~/components/atoms/AtomDivider.vue';
 import { Account } from '~/logic/models/Account';
 import EntityInterface from '~/logic/models/utils/EntityInterface';
+import { DateTime } from 'luxon';
 
 const GET_ACCOUNTS = gql`
   query getAccounts {
@@ -89,6 +92,8 @@ export default class OrganismTransactionList extends Vue {
   private search: Nullable<string> = null;
   private selectedAccountId: Nullable<string> = null;
   private selectedBankId: Nullable<number> = null;
+  private fromDate: Nullable<DateTime> = null;
+  private toDate: Nullable<DateTime> = null;
 
   get hasNext(): boolean {
     return this.transactions?.pageInfo.hasNext ?? false;
@@ -125,6 +130,8 @@ export default class OrganismTransactionList extends Vue {
   @Watch('search')
   @Watch('selectedAccountId')
   @Watch('selectedBankId')
+  @Watch('fromDate')
+  @Watch('toDate')
   public onFiltersChange() {
     this.pageIndex = 0;
     this.fetchPage();
@@ -133,6 +140,15 @@ export default class OrganismTransactionList extends Vue {
   async fetchPage() {
     const bankName =
       this.selectedBankId != null ? this.banks[this.selectedBankId] : null;
+
+    const date =
+      this.fromDate != null || this.toDate != null
+        ? {
+            from: this.fromDate?.toISODate(),
+            to: this.toDate?.toISODate(),
+          }
+        : null;
+    console.log(date);
 
     this.transactions = (
       await this.$apollo.query({
@@ -145,6 +161,7 @@ export default class OrganismTransactionList extends Vue {
               search: this.search || undefined,
               bank: bankName || undefined,
               account: this.selectedAccountId || undefined,
+              date: date || undefined,
             },
             sort: {
               field: 'DATE',

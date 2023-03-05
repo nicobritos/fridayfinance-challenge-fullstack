@@ -24,17 +24,19 @@
       target-class="w-full"
       class="flex-grow-0 flex-shrink max-w-8"
     />
-    <AtomTextInput
-      title="Starting month"
-      value=""
-      placeholder="No filter applied"
+    <MoleculeDateInput
+      title="From"
+      :value="fromDateString"
+      :debounce="200"
+      @update:value="onUpdateFromDate"
       target-class="w-full"
       class="flex-grow-0 flex-shrink max-w-8"
     />
-    <AtomTextInput
-      title="Ending month"
-      value=""
-      placeholder="No filter applied"
+    <MoleculeDateInput
+      title="To"
+      :value.sync="toDateString"
+      :debounce="200"
+      @update:value="onUpdateToDate"
       target-class="w-full"
       class="flex-grow-0 flex-shrink max-w-8"
     />
@@ -42,27 +44,83 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, PropSync, Vue } from 'vue-property-decorator';
+import { Component, Prop, PropSync, Vue, Watch } from 'vue-property-decorator';
 import AtomTextInput from '~/components/atoms/inputs/AtomTextInput.vue';
 import AtomInput from '~/components/atoms/inputs/AtomInput.vue';
 import AtomDropdown from '~/components/atoms/inputs/AtomDropdown.vue';
 import { Nullable } from '~/logic/models/utils/UtilityTypes';
 import { Account } from '~/logic/models/Account';
+import { DateTime } from 'luxon';
+import MoleculeDateInput from '~/components/molecules/MoleculeDateInput.vue';
 
 @Component({
-  components: { AtomDropdown, AtomInput, AtomTextInput },
+  components: { MoleculeDateInput, AtomDropdown, AtomInput, AtomTextInput },
 })
 export default class MoleculeTransactionFilter extends Vue {
   @PropSync('search', { required: true })
-  private declare readonly searchSync: Nullable<string>;
+  private declare searchSync: Nullable<string>;
+  @PropSync('fromDate', { required: true })
+  private declare fromDateSync: Nullable<DateTime>;
+  @PropSync('toDate', { required: true })
+  private declare toDateSync: Nullable<DateTime>;
   @PropSync('selectedBankId', { required: true })
-  private declare readonly selectedBankIdSync: Nullable<string>;
+  private declare selectedBankIdSync: Nullable<number>;
   @PropSync('selectedAccountId', { required: true })
-  private declare readonly selectedAccountIdSync: Nullable<string>;
+  private declare selectedAccountIdSync: Nullable<string>;
   @Prop({ type: Array, required: true })
   private declare readonly accounts: Account[];
   @Prop({ type: Array, required: true })
   private declare readonly banks: string[];
+
+  private toDateString: Nullable<string> = null;
+  private fromDateString: Nullable<string> = null;
+
+  public created(): void {
+    this.updateToDateString();
+    this.updateFromDateString();
+  }
+
+  @Watch('toDateSync')
+  public updateToDateString() {
+    this.toDateString = this.toDateSync?.toFormat('yyyy-MM') || null;
+  }
+
+  @Watch('fromDateSync')
+  public updateFromDateString() {
+    this.fromDateString = this.fromDateSync?.toFormat('yyyy-MM') || null;
+  }
+
+  public onUpdateToDate(newDate: string) {
+    this.toDateString = newDate;
+    this.updateToDate();
+  }
+
+  public onUpdateFromDate(newDate: string) {
+    this.fromDateString = newDate;
+    this.updateFromDate();
+  }
+
+  public updateToDate() {
+    const newDate = this.toDateString
+      ? DateTime.fromFormat(this.toDateString, 'yyyy-MM')
+      : null;
+    if (newDate?.isValid) {
+      this.toDateSync = newDate.endOf('month');
+    } else {
+      this.toDateSync = null;
+    }
+  }
+
+  public updateFromDate() {
+    const newDate = this.fromDateString
+      ? DateTime.fromFormat(this.fromDateString, 'yyyy-MM')
+      : null;
+    if (newDate?.isValid) {
+      this.fromDateSync = newDate;
+    } else {
+      this.fromDateSync = null;
+    }
+  }
 }
 </script>
 

@@ -9273,6 +9273,11 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
+maska@^2.1.7:
+  version "2.1.7"
+  resolved "https://registry.yarnpkg.com/maska/-/maska-2.1.7.tgz#225a1124b311ccd603379cdf3d18920fbee27c54"
+  integrity sha512-WMQzwCgFN2lQf8opJwHwdik7YQ1F8IggGEPdky6qyaaKaE9fUCc8wfbx0U4SfnFiPTsE3/5PzI0Qka4xTBczrw==
+
 matcher@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/matcher/-/matcher-3.0.0.tgz#bd9060f4c5b70aa8041ccc6f80368760994f30ca"
