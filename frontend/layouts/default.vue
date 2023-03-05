@@ -1,6 +1,8 @@
 <template>
   <div class="bg-light-gray font-inter min-w-full min-h-screen">
-    <Nuxt />
+    <div class="py-4 w-full h-screen overflow-hidden">
+      <Nuxt />
+    </div>
   </div>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center py-4 w-full h-screen overflow-hidden">
+  <div class="flex justify-center">
     <OrganismTransactionList class="w-3/4 text-xs max-h-full" />
   </div>
 </template>

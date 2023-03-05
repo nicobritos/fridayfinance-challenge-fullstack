@@ -148,7 +148,6 @@ export default class OrganismTransactionList extends Vue {
             to: this.toDate?.toISODate(),
           }
         : null;
-    console.log(date);
 
     this.transactions = (
       await this.$apollo.query({
