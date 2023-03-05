@@ -5,6 +5,7 @@ import { injectable } from 'inversify';
 import lazyInject from '../../ioc/LazyInject';
 import { TransactionService } from '@interfaces/services/TransactionService';
 import {
+  MutationSetTransactionCategoryArgs,
   QueryGetTransactionArgs,
   QueryListTransactionsArgs,
   Resolvers,
@@ -37,6 +38,9 @@ class TransactionResolverImpl implements BaseResolver {
       Query: {
         listTransactions: this.listTransactions.bind(this),
         getTransaction: this.getTransaction.bind(this),
+      },
+      Mutation: {
+        setTransactionCategory: this.setTransactionCategory.bind(this),
       },
       Transaction: {
         account: this.getAccount.bind(this),
@@ -85,6 +89,16 @@ class TransactionResolverImpl implements BaseResolver {
     args: QueryGetTransactionArgs
   ): Promise<Nullable<Transaction>> {
     return await this.service.find(args.id);
+  }
+
+  async setTransactionCategory(
+    _: any,
+    args: MutationSetTransactionCategoryArgs
+  ): Promise<Transaction> {
+    return await this.service.setCategory(
+      args.transaction,
+      args.category || null
+    );
   }
 
   async getAccount(transaction: Transaction): Promise<Nullable<Account>> {

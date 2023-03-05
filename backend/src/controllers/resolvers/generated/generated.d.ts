@@ -34,6 +34,17 @@ export type DateRangeInput = {
   to?: InputMaybe<Scalars['ISODate']>;
 };
 
+export type Mutation = {
+  __typename?: 'Mutation';
+  setTransactionCategory: Transaction;
+};
+
+
+export type MutationSetTransactionCategoryArgs = {
+  category?: InputMaybe<Scalars['ID']>;
+  transaction: Scalars['ID'];
+};
+
 export type Node = {
   id: Scalars['ID'];
 };
@@ -50,7 +61,7 @@ export type Pagination = {
 
 export type Query = {
   __typename?: 'Query';
-  getTransaction: TransactionPage;
+  getTransaction?: Maybe<Transaction>;
   listAccounts: Array<Account>;
   listCategories: Array<Category>;
   listTransactions: TransactionPage;
@@ -192,6 +203,7 @@ export type ResolversTypes = ResolversObject<{
   ID: ResolverTypeWrapper<Scalars['ID']>;
   ISODate: ResolverTypeWrapper<Scalars['ISODate']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
+  Mutation: ResolverTypeWrapper<{}>;
   Node: ResolversTypes['Account'] | ResolversTypes['Category'] | ResolversTypes['Transaction'];
   PageInfo: ResolverTypeWrapper<PageInfo>;
   Pagination: ResolversTypes['TransactionPage'];
@@ -216,6 +228,7 @@ export type ResolversParentTypes = ResolversObject<{
   ID: Scalars['ID'];
   ISODate: Scalars['ISODate'];
   Int: Scalars['Int'];
+  Mutation: {};
   Node: ResolversParentTypes['Account'] | ResolversParentTypes['Category'] | ResolversParentTypes['Transaction'];
   PageInfo: PageInfo;
   Pagination: ResolversParentTypes['TransactionPage'];
@@ -246,6 +259,10 @@ export interface IsoDateScalarConfig extends GraphQLScalarTypeConfig<ResolversTy
   name: 'ISODate';
 }
 
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
+  setTransactionCategory?: Resolver<ResolversTypes['Transaction'], ParentType, ContextType, RequireFields<MutationSetTransactionCategoryArgs, 'transaction'>>;
+}>;
+
 export type NodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = ResolversObject<{
   __resolveType: TypeResolveFn<'Account' | 'Category' | 'Transaction', ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -263,7 +280,7 @@ export type PaginationResolvers<ContextType = any, ParentType extends ResolversP
 }>;
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
-  getTransaction?: Resolver<ResolversTypes['TransactionPage'], ParentType, ContextType, RequireFields<QueryGetTransactionArgs, 'id'>>;
+  getTransaction?: Resolver<Maybe<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryGetTransactionArgs, 'id'>>;
   listAccounts?: Resolver<Array<ResolversTypes['Account']>, ParentType, ContextType>;
   listCategories?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType>;
   listTransactions?: Resolver<ResolversTypes['TransactionPage'], ParentType, ContextType, RequireFields<QueryListTransactionsArgs, 'pagination'>>;
@@ -290,6 +307,7 @@ export type Resolvers<ContextType = any> = ResolversObject<{
   Account?: AccountResolvers<ContextType>;
   Category?: CategoryResolvers<ContextType>;
   ISODate?: GraphQLScalarType;
+  Mutation?: MutationResolvers<ContextType>;
   Node?: NodeResolvers<ContextType>;
   PageInfo?: PageInfoResolvers<ContextType>;
   Pagination?: PaginationResolvers<ContextType>;

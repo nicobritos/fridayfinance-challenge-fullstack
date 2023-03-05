@@ -45,3 +45,7 @@ extend type Query {
   ): TransactionPage!
   getTransaction(id: ID!): Transaction
 }
+
+extend type Mutation {
+  setTransactionCategory(transaction: ID!, category: ID): Transaction!
+}

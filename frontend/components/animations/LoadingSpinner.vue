@@ -1,14 +1,22 @@
 <template>
   <div
-    class="loader ease-linear rounded-full border-gray-300 border-t-accent-2 border-12 h-24 w-24"
+    class="loader ease-linear rounded-full border-gray-500 border-t-accent-4"
+    :class="size"
   />
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component
-export default class LoadingSpinner extends Vue {}
+export default class LoadingSpinner extends Vue {
+  @Prop({ type: Boolean, required: false, default: false })
+  private declare readonly small;
+
+  get size() {
+    return this.small ? 'border-3 h-6 w-6' : 'border-12 h-24 w-24';
+  }
+}
 </script>
 
 <style scoped>

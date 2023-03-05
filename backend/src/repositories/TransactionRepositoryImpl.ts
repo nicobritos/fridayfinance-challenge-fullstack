@@ -61,6 +61,14 @@ export class TransactionRepositoryImpl implements TransactionRepository {
     return null;
   }
 
+  async setCategory(id: ID, categoryId: Nullable<ID>): Promise<Transaction> {
+    const entity = await this.prisma.transaction.update({
+      where: { id },
+      data: { categoryId },
+    });
+    return this.toModel(entity);
+  }
+
   buildOrderBy(
     sort: TransactionPaginationSort
   ): Prisma.TransactionOrderByWithRelationInput {

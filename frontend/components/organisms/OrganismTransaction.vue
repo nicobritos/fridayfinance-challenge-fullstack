@@ -10,11 +10,14 @@
     <MoleculeTransactionCategory
       :transaction="transaction"
       :categories="categories"
-      @on-category-selected="onCategorySelected"
+      :new-category.sync="newCategory"
+      :unselect-category.sync="unselectCategory"
     />
     <MoleculeConfirmCancelButtons
-      :disable-cancel="!hasChangedCategory"
-      :disable-confirm="!hasChangedCategory"
+      :disable-cancel="!hasChangedCategory || loading"
+      :disable-confirm="!hasChangedCategory || loading"
+      @on-cancel="resetCategory"
+      @on-confirm="confirm"
     />
   </AtomRoundedContainer>
 </template>
@@ -39,6 +42,15 @@ import MoleculeTransactionCategory from '~/components/molecules/transaction/Mole
 import AtomTransactionIdDate from '~/components/atoms/transaction/AtomTransactionIdDate.vue';
 import { Category } from '~/logic/models/Category';
 import { Nullable } from '~/logic/models/utils/UtilityTypes';
+import gql from 'graphql-tag';
+
+const SET_CATEGORY = gql`
+  mutation setTransactionCategory($transaction: ID!, $category: ID) {
+    setTransactionCategory(transaction: $transaction, category: $category) {
+      id
+    }
+  }
+`;
 
 @Component({
   components: {
@@ -67,19 +79,35 @@ export default class OrganismTransaction extends Vue {
 
   private newCategory: Nullable<Category> = null;
   private unselectCategory: boolean = false;
+  private loading: boolean = false;
 
   get hasChangedCategory(): boolean {
     return (
-      this.newCategory &&
-      !this.unselectCategory &&
-      this.newCategory?.id !== this.transaction.category?.id
+      (this.newCategory &&
+        this.newCategory?.id !== this.transaction.category?.id) ||
+      this.unselectCategory
     );
   }
 
-  public onCategorySelected(category?: Category): void {
-    console.log('onCategorySelected', category);
-    this.newCategory = category;
-    this.unselectCategory = !category;
+  public resetCategory(): void {
+    this.newCategory = null;
+    this.unselectCategory = false;
+  }
+
+  public async confirm(): Promise<void> {
+    if (this.hasChangedCategory) {
+      this.loading = true;
+      await this.$apollo.mutate({
+        mutation: SET_CATEGORY,
+        variables: {
+          transaction: this.transaction.id,
+          category: this.newCategory?.id,
+        },
+      });
+      setTimeout(() => {
+        this.loading = false;
+      }, 200);
+    }
   }
 }
 </script>

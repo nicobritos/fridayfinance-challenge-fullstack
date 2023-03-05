@@ -5,3 +5,5 @@ interface Node {
 scalar ISODate
 
 type Query
+
+type Mutation

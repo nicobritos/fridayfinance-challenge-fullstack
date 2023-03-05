@@ -9,4 +9,6 @@ export interface TransactionRepository {
   ): Promise<Paginated<Transaction>>;
 
   find(id: ID): Promise<Nullable<Transaction>>;
+
+  setCategory(id: ID, categoryId: Nullable<ID>): Promise<Transaction>;
 }

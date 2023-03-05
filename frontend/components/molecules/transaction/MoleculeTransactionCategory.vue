@@ -16,7 +16,7 @@
         <AtomButtonDropdownOptions
           v-if="showCategories"
           class="absolute top-7 w-56"
-          :options="categories"
+          :options="categoryOptions"
           @selected="setCategory"
         />
       </div>
@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Emit, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, PropSync, Vue } from 'vue-property-decorator';
 import AtomRoundedContainer from '~/components/atoms/containers/AtomRoundedContainer.vue';
 import { Transaction } from '~/logic/models/Transaction';
 import AtomTag from '~/components/atoms/AtomTag.vue';
@@ -50,22 +50,49 @@ export default class MoleculeTransactionCategory extends Vue {
   private declare readonly transaction: Transaction;
   @Prop({ type: Array, required: true })
   private declare readonly categories: Category[];
+  @PropSync('newCategory', { required: true })
+  private declare newCategorySync: Nullable<Category>;
+  @PropSync('unselectCategory', { required: true })
+  private declare unselectCategorySync: boolean;
 
-  private newCategory: Nullable<Category> = null;
+  private removeCategoryOption: EntityInterface = {
+    id: 'remove',
+    name: 'Uncategorized',
+  };
   private showCategories: boolean = false;
 
   private handleOutsideClickBound: Function =
     this.handleOutsideClick.bind(this);
 
+  get categoryOptions(): EntityInterface[] {
+    return [
+      this.removeCategoryOption,
+      ...this.categories.map((category) => ({
+        id: category.id!,
+        name: category.name!,
+      })),
+    ];
+  }
+
   get categoryColor(): string {
+    if (this.unselectCategorySync) {
+      return '#b6b6b6';
+    }
+
     return `#${
-      this.newCategory?.color ?? this.transaction.category?.color ?? 'b6b6b6'
+      this.newCategorySync?.color ??
+      this.transaction.category?.color ??
+      'b6b6b6'
     }`;
   }
 
   get categoryName(): string {
+    if (this.unselectCategorySync) {
+      return 'Uncategorized';
+    }
+
     return (
-      this.newCategory?.name ??
+      this.newCategorySync?.name ??
       this.transaction.category?.name ??
       'Uncategorized'
     );
@@ -93,18 +120,22 @@ export default class MoleculeTransactionCategory extends Vue {
     this.showCategories = false;
   }
 
-  public setCategory(id: EntityInterface['id']): void {
+  public setCategory(id: EntityInterface['id'] | Event): void {
+    if (id instanceof Event) {
+      return;
+    }
+
     this.showCategories = false;
     const newCategory =
       this.categories.find((category) => category.id === id) || null;
     if (newCategory != null) {
-      this.newCategory = newCategory;
-      this.onCategorySelected(newCategory);
+      this.newCategorySync = newCategory;
+      this.unselectCategorySync = false;
+    } else {
+      this.unselectCategorySync = true;
+      this.newCategorySync = null;
     }
   }
-
-  @Emit()
-  public onCategorySelected(category: Category): void {}
 }
 </script>
 
