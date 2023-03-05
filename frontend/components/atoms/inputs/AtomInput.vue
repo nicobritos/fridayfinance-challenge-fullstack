@@ -53,14 +53,9 @@ import {
   Vue,
   Watch,
 } from 'vue-property-decorator';
-import { vMaska } from 'maska';
 import { Nullable } from '~/logic/models/utils/UtilityTypes';
 
-@Component({
-  directives: {
-    maska: vMaska,
-  },
-})
+@Component
 export default class AtomInput extends Vue {
   @Ref('prepend')
   private declare readonly prependEl: HTMLElement;

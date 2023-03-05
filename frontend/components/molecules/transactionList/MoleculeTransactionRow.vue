@@ -1,5 +1,8 @@
 <template>
-  <tr class="hover:bg-light-gray cursor-pointer transition-colors duration-300">
+  <tr
+    @click="openTransaction"
+    class="hover:bg-light-gray cursor-pointer transition-colors duration-300"
+  >
     <AtomRowItem class="pl-2" :class="referenceTextClass">{{
       transactionReference
     }}</AtomRowItem>
@@ -57,6 +60,12 @@ export default class MoleculeTransactionRow extends Vue {
   get transactionDate(): string {
     if (!this.transaction.date) return 'N/A';
     return DateTime.fromISO(this.transaction.date).toFormat('dd/MM/yy');
+  }
+
+  public openTransaction(event?: Event): void {
+    event?.stopPropagation();
+    event?.preventDefault();
+    this.$router.push(`/transactions/${this.transaction.id}`);
   }
 }
 </script>

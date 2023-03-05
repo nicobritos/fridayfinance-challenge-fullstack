@@ -9,15 +9,18 @@ module.exports = {
       colors: {
         accent: '#efff8b',
         'accent-2': '#8F9467',
-        'accent-3': '#F9FAEE',
-        'accent-4': '#1B3D2F',
-        'light-gray': '#fafaf8',
+        'accent-3': '#d7e67d',
+        'accent-4': '#bfcc6f',
+        'light-gray': '#fbfaf8',
       },
       maxWidth: {
         8: '8rem',
       },
       fontFamily: {
         inter: ['Inter', 'sans-serif'],
+      },
+      borderWidth: {
+        12: '12px',
       },
     },
   },

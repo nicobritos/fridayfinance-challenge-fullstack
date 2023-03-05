@@ -16,8 +16,8 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import AtomTable from '~/components/atoms/containers/AtomTable.vue';
 import { Transaction } from '~/logic/models/Transaction';
-import MoleculeTransactionRow from '~/components/molecules/transaction/MoleculeTransactionRow.vue';
-import MoleculeTransactionHeader from '~/components/molecules/transaction/MoleculeTransactionHeader.vue';
+import MoleculeTransactionRow from '~/components/molecules/transactionList/MoleculeTransactionRow.vue';
+import MoleculeTransactionHeader from '~/components/molecules/transactionList/MoleculeTransactionHeader.vue';
 import { Nullable } from '~/logic/models/utils/UtilityTypes';
 
 @Component({

@@ -30,8 +30,8 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import AtomTitle from '~/components/atoms/AtomTitle.vue';
 import AtomRoundedContainer from '~/components/atoms/containers/AtomRoundedContainer.vue';
-import MoleculeTransactionFilter from '~/components/molecules/transaction/MoleculeTransactionFilter.vue';
-import MoleculeTransactionTable from '~/components/molecules/transaction/MoleculeTransactionTable.vue';
+import MoleculeTransactionFilter from '~/components/molecules/transactionList/MoleculeTransactionFilter.vue';
+import MoleculeTransactionTable from '~/components/molecules/transactionList/MoleculeTransactionTable.vue';
 import gql from 'graphql-tag';
 import { Transaction } from '~/logic/models/Transaction';
 import { Paginated } from '~/logic/models/utils/Paginated';
