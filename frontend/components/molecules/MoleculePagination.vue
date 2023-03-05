@@ -37,11 +37,15 @@ export default class MoleculePagination extends Vue {
     return this.pageSync + 1;
   }
 
-  public nextPage(): void {
+  public nextPage(event?: Event): void {
+    event?.stopPropagation();
+    event?.preventDefault();
     this.pageSync++;
   }
 
-  public previousPage(): void {
+  public previousPage(event?: Event): void {
+    event?.stopPropagation();
+    event?.preventDefault();
     this.pageSync--;
   }
 }
