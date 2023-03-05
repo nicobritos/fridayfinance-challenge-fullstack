@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import AtomTitle from '~/components/atoms/AtomTitle.vue';
 import AtomRoundedContainer from '~/components/atoms/containers/AtomRoundedContainer.vue';
 import MoleculeTransactionFilter from '~/components/molecules/transactionList/MoleculeTransactionFilter.vue';
