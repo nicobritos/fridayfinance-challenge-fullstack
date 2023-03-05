@@ -5,7 +5,7 @@
     @click="click"
     :disabled="disabled"
   >
-    <span class="px-4 py-2 flex items-center justify-center relative">
+    <span class="px-4 py-2 flex relative" :class="targetClass">
       <slot />
     </span>
   </button>
@@ -16,6 +16,8 @@ import { Component, Emit, Prop, Vue } from 'vue-property-decorator';
 
 @Component
 export default class AtomButton extends Vue {
+  @Prop({ default: 'items-center justify-center' })
+  private declare readonly targetClass: string;
   @Prop({ type: Boolean, default: false })
   private declare readonly disabled: boolean;
   @Prop({ type: Boolean, default: true })
@@ -30,7 +32,9 @@ export default class AtomButton extends Vue {
   }
 
   @Emit()
-  click(): void {
+  click(event?: Event): void {
+    event?.stopPropagation();
+    event?.preventDefault();
     if (!this.disabled) this.$emit('click');
   }
 }
