@@ -2,8 +2,8 @@
   <button
     class="text-center block flex-shrink-0 bg-transparent text-black select-none focus:outline-none cursor-pointer transition duration-100"
     :class="disabledClass"
-    @click="click"
     :disabled="disabled"
+    @click="click"
   >
     <span class="px-4 py-2 flex relative" :class="targetClass">
       <slot />
@@ -21,7 +21,7 @@ export default class AtomButton extends Vue {
   @Prop({ type: Boolean, default: false })
   private declare readonly disabled: boolean;
   @Prop({ type: Boolean, default: true })
-  private readonly rounded: boolean;
+  private declare readonly rounded: boolean;
 
   get disabledClass(): string {
     let c = this.disabled

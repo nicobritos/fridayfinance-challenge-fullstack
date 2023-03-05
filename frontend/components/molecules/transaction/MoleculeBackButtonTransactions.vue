@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import AtomElevatedButton from '~/components/atoms/button/AtomElevatedButton.vue';
+import AtomElevatedButton from '~/components/atoms/button/AtomElevatedButton.vue'
 
 @Component({
   components: {

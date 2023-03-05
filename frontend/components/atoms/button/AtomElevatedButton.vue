@@ -24,9 +24,9 @@ export default class AtomElevatedButton extends Vue {
   @Prop({ type: Boolean, default: false })
   private declare readonly disabled: boolean;
   @Prop({ type: Boolean, default: true })
-  private readonly rounded: boolean;
+  private declare readonly rounded: boolean;
   @Prop({ type: Boolean, default: false })
-  private readonly primary: boolean;
+  private declare readonly primary: boolean;
 
   get colorClass(): string {
     if (this.primary) return 'bg-accent hover:bg-accent-3 active:bg-accent-4';

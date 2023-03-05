@@ -50,7 +50,9 @@ export default class AtomTextInput extends Vue {
   private debounceFunction: Nullable<Function> = null;
 
   public created(): void {
-    this.debounceFunction = debounce(this.debounce, () => this.emitNewValue());
+    if (this.debounce != null) {
+      this.debounceFunction = debounce(this.debounce!, () => this.emitNewValue())
+    }
   }
 
   @Watch('rtValue')

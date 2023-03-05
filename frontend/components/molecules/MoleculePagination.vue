@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import { Component, Prop, PropSync, Vue } from 'vue-property-decorator';
-import AtomButton from '~/components/atoms/AtomButton.vue';
+import AtomButton from '~/components/atoms/button/AtomButton.vue';
 
 @Component({
   components: { AtomButton },

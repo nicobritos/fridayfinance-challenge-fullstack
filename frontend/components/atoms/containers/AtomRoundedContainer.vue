@@ -19,9 +19,9 @@ import AtomContainer from '~/components/atoms/containers/AtomContainer.vue';
 })
 export default class AtomRoundedContainer extends Vue {
   @Prop({ type: String, default: 'bg-white' })
-  private readonly backgroundColor: string;
+  private declare readonly backgroundColor: string;
   @Prop({ type: String, default: '' })
-  private readonly targetClass: string;
+  private declare readonly targetClass: string;
 }
 </script>
 
