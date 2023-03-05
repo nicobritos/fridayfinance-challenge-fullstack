@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center">
+  <div class="flex justify-center h-full">
     <OrganismTransactionList class="w-3/4 text-xs max-h-full" />
   </div>
 </template>
