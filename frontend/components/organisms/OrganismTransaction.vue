@@ -14,8 +14,8 @@
       :unselect-category.sync="unselectCategory"
     />
     <MoleculeConfirmCancelButtons
-      :disable-cancel="!hasChangedCategory || loading"
-      :disable-confirm="!hasChangedCategory || loading"
+      :disable-cancel="disableButtons"
+      :disable-confirm="disableButtons"
       @on-cancel="resetCategory"
       @on-confirm="confirm"
     />
@@ -80,6 +80,10 @@ export default class OrganismTransaction extends Vue {
   private newCategory: Nullable<Category> = null;
   private unselectCategory: boolean = false;
   private loading: boolean = false;
+
+  get disableButtons(): boolean {
+    return !this.hasChangedCategory || this.loading;
+  }
 
   get hasChangedCategory(): boolean {
     return (

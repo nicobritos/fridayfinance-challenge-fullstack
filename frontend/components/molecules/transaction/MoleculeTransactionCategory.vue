@@ -61,7 +61,7 @@ export default class MoleculeTransactionCategory extends Vue {
   };
   private showCategories: boolean = false;
 
-  private handleOutsideClickBound: Function =
+  private handleOutsideClickBound: (ev: WindowEventMap['click']) => any =
     this.handleOutsideClick.bind(this);
 
   get categoryOptions(): EntityInterface[] {
@@ -99,7 +99,7 @@ export default class MoleculeTransactionCategory extends Vue {
   }
 
   private handleOutsideClick(event: Event): void {
-    if (!this.$el.contains(event.target)) {
+    if (!this.$el.contains(event.target as Node)) {
       this.closeCategories();
     }
   }

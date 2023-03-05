@@ -18,19 +18,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import AtomTitle from '~/components/atoms/AtomTitle.vue';
 import AtomRoundedContainer from '~/components/atoms/containers/AtomRoundedContainer.vue';
-import MoleculeTransactionFilter from '~/components/molecules/transactionList/MoleculeTransactionFilter.vue';
-import MoleculeTransactionTable from '~/components/molecules/transactionList/MoleculeTransactionTable.vue';
-import MoleculePagination from '~/components/molecules/MoleculePagination.vue';
-import AtomDivider from '~/components/atoms/AtomDivider.vue';
 import { Transaction } from '~/logic/models/Transaction';
-import { DateTime } from 'luxon';
-import AtomTag from '~/components/atoms/AtomTag.vue';
-import MoleculeConfirmCancelButtons from '~/components/molecules/MoleculeConfirmCancelButtons.vue';
-import AtomButton from '~/components/atoms/button/AtomButton.vue';
-import AtomElevatedButton from '~/components/atoms/button/AtomElevatedButton.vue';
-import MoleculeBackButtonTransactions from '~/components/molecules/transaction/MoleculeBackButtonTransactions.vue';
 
 @Component({
   components: { AtomRoundedContainer },
