@@ -7,6 +7,7 @@ import { Transaction } from '@models/Transaction';
 import { TransactionService } from '@interfaces/services/TransactionService';
 import { TransactionPaginationOptions } from '@interfaces/queries/TransactionPaginationOptions';
 import { Paginated } from '@models/utils/Paginated';
+import { ID, Nullable } from '@models/utils/UtilityTypes';
 
 @injectable()
 export class TransactionServiceImpl implements TransactionService {
@@ -17,5 +18,9 @@ export class TransactionServiceImpl implements TransactionService {
     options: TransactionPaginationOptions
   ): Promise<Paginated<Transaction>> {
     return this.repository.findAll(options);
+  }
+
+  find(id: ID): Promise<Nullable<Transaction>> {
+    return this.repository.find(id);
   }
 }

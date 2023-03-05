@@ -18,6 +18,7 @@ import {
 } from '@interfaces/queries/TransactionPaginationOptions';
 import { Paginated } from '@models/utils/Paginated';
 import { SortOptions } from '@interfaces/queries/SortOptions';
+import { ID, Nullable } from '@models/utils/UtilityTypes';
 
 @injectable()
 export class TransactionRepositoryImpl implements TransactionRepository {
@@ -48,6 +49,16 @@ export class TransactionRepositoryImpl implements TransactionRepository {
         hasNext,
       },
     };
+  }
+
+  async find(id: ID): Promise<Nullable<Transaction>> {
+    const entity = await this.prisma.transaction.findUnique({
+      where: { id },
+    });
+    if (entity) {
+      return this.toModel(entity);
+    }
+    return null;
   }
 
   buildOrderBy(

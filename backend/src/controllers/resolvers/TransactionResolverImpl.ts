@@ -4,7 +4,11 @@ import { BaseResolver } from '@controllers/resolvers/BaseResolver';
 import { injectable } from 'inversify';
 import lazyInject from '../../ioc/LazyInject';
 import { TransactionService } from '@interfaces/services/TransactionService';
-import { QueryListTransactionsArgs, Resolvers } from './generated/generated';
+import {
+  QueryGetTransactionArgs,
+  QueryListTransactionsArgs,
+  Resolvers,
+} from './generated/generated';
 import {
   TransactionPaginationFilter,
   TransactionPaginationSortField,
@@ -32,6 +36,7 @@ class TransactionResolverImpl implements BaseResolver {
     return {
       Query: {
         listTransactions: this.listTransactions.bind(this),
+        getTransaction: this.getTransaction.bind(this),
       },
       Transaction: {
         account: this.getAccount.bind(this),
@@ -73,6 +78,13 @@ class TransactionResolverImpl implements BaseResolver {
         order: SortOptions[args.pagination.sort?.order],
       },
     });
+  }
+
+  async getTransaction(
+    _: any,
+    args: QueryGetTransactionArgs
+  ): Promise<Nullable<Transaction>> {
+    return await this.service.find(args.id);
   }
 
   async getAccount(transaction: Transaction): Promise<Nullable<Account>> {

@@ -43,4 +43,5 @@ extend type Query {
   listTransactions(
     pagination: TransactionPaginationOptionsInput!
   ): TransactionPage!
+  getTransaction(id: ID!): Transaction
 }

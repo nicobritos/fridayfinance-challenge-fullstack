@@ -50,9 +50,15 @@ export type Pagination = {
 
 export type Query = {
   __typename?: 'Query';
+  getTransaction: TransactionPage;
   listAccounts: Array<Account>;
   listCategories: Array<Category>;
   listTransactions: TransactionPage;
+};
+
+
+export type QueryGetTransactionArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -257,6 +263,7 @@ export type PaginationResolvers<ContextType = any, ParentType extends ResolversP
 }>;
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
+  getTransaction?: Resolver<ResolversTypes['TransactionPage'], ParentType, ContextType, RequireFields<QueryGetTransactionArgs, 'id'>>;
   listAccounts?: Resolver<Array<ResolversTypes['Account']>, ParentType, ContextType>;
   listCategories?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType>;
   listTransactions?: Resolver<ResolversTypes['TransactionPage'], ParentType, ContextType, RequireFields<QueryListTransactionsArgs, 'pagination'>>;
