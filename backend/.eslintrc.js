@@ -10,6 +10,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'prettier',
   ],
+  ignorePatterns: ['node_modules/', 'dist/', '*.d.ts'],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
