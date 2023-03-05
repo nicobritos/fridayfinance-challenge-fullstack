@@ -42,15 +42,7 @@ import MoleculeTransactionCategory from '~/components/molecules/transaction/Mole
 import AtomTransactionIdDate from '~/components/atoms/transaction/AtomTransactionIdDate.vue';
 import { Category } from '~/logic/models/Category';
 import { Nullable } from '~/logic/models/utils/UtilityTypes';
-import gql from 'graphql-tag';
-
-const SET_CATEGORY = gql`
-  mutation setTransactionCategory($transaction: ID!, $category: ID) {
-    setTransactionCategory(transaction: $transaction, category: $category) {
-      id
-    }
-  }
-`;
+import { transactionsStore } from '~/store';
 
 @Component({
   components: {
@@ -100,17 +92,9 @@ export default class OrganismTransaction extends Vue {
 
   public async confirm(): Promise<void> {
     if (this.hasChangedCategory) {
-      this.loading = true;
-      await this.$apollo.mutate({
-        mutation: SET_CATEGORY,
-        variables: {
-          transaction: this.transaction.id,
-          category: this.newCategory?.id,
-        },
-      });
-      setTimeout(() => {
-        this.loading = false;
-      }, 200);
+      await transactionsStore.updateTransactionCategory(
+        this.newCategory?.id || null
+      );
     }
   }
 }
