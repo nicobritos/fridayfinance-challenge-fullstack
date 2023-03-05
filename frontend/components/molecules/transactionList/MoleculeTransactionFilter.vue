@@ -4,7 +4,7 @@
       title="Search"
       :value.sync="searchSync"
       :debounce="200"
-      placeholder="Search by bank, account, reference, category, date, amount, currency..."
+      placeholder="Search by reference, date, amount, currency..."
       target-class="w-full"
       class="flex-grow flex-shrink-0"
     />

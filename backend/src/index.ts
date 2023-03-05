@@ -22,6 +22,4 @@ async function main() {
   console.log(`🚀  Server ready at: ${url}`);
 }
 
-main().then(() => {
-  console.log('Server started');
-});
+main().then(() => {});

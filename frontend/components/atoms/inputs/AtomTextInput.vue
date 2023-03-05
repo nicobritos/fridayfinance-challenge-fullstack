@@ -67,7 +67,6 @@ export default class AtomTextInput extends Vue {
   }
 
   private emitNewValue(): void {
-    console.log('emitting new value: ' + this.rtValue);
     this.valueSync = this.rtValue;
   }
 }
