@@ -15,7 +15,7 @@
     "allowUnreachableCode": false,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,

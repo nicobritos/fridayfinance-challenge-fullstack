@@ -34,6 +34,15 @@ services:
     ports:
       - "5000:5000"
 
+  ff-challenge-frontend:
+    container_name: ff-challenge-frontend
+    restart: always
+    image: ff-challenge-frontend
+    build:
+      context: ./frontend
+    ports:
+      - "5010:80"
+
 networks:
   db:
     driver: bridge
