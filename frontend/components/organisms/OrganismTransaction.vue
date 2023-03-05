@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import AtomTitle from '~/components/atoms/AtomTitle.vue';
 import AtomRoundedContainer from '~/components/atoms/containers/AtomRoundedContainer.vue';
 import MoleculeTransactionFilter from '~/components/molecules/transactionList/MoleculeTransactionFilter.vue';
@@ -69,6 +69,7 @@ export default class OrganismTransaction extends Vue {
   @Prop({ type: Array, required: true })
   private declare readonly categories: Category[];
 
+  private transactionCategory: Nullable<Category> = null;
   private newCategory: Nullable<Category> = null;
   private unselectCategory: boolean = false;
   private loading: boolean = false;
@@ -80,7 +81,7 @@ export default class OrganismTransaction extends Vue {
   get hasChangedCategory(): boolean {
     return (
       (this.newCategory &&
-        this.newCategory?.id !== this.transaction.category?.id) ||
+        this.newCategory?.id !== this.transactionCategory?.id) ||
       this.unselectCategory
     );
   }
@@ -95,7 +96,13 @@ export default class OrganismTransaction extends Vue {
       await transactionsStore.updateTransactionCategory(
         this.newCategory?.id || null
       );
+      this.transactionCategory = this.newCategory;
     }
+  }
+
+  @Watch('transaction', { immediate: true })
+  public onTransactionChange(): void {
+    this.transactionCategory = this.transaction?.category || null;
   }
 }
 </script>
