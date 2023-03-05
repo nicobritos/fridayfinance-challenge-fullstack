@@ -56,6 +56,6 @@
     "typescript": "^4.9.5"
   },
   "prisma": {
-    "seed": "dotenv -e config/.env -- ts-node --transpile-only ./src/prisma/seed.ts"
+    "seed": "dotenv -e config/.env -- ts-node --transpile-only --compiler-options {\"module\":\"CommonJS\"} ./src/repositories/prisma/seed.ts"
   }
 }
