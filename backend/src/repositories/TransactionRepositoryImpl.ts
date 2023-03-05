@@ -117,10 +117,29 @@ export class TransactionRepositoryImpl implements TransactionRepository {
       };
     }
     if (filter.search) {
-      where.reference = {
-        contains: filter.search,
-        mode: 'insensitive',
-      };
+      const search = filter.search.trim();
+      where.OR = [];
+      where.OR.push({
+        reference: {
+          contains: search,
+          mode: 'insensitive',
+        },
+      });
+      if (search.length == 3) {
+        where.OR.push({
+          currency: {
+            equals: search,
+            mode: 'insensitive',
+          },
+        });
+      }
+      if (/^\d+$/.test(search)) {
+        where.OR.push({
+          amount: {
+            equals: parseFloat(search),
+          },
+        });
+      }
     }
     if (filter.date?.from || filter.date?.to) {
       where.date = {};
